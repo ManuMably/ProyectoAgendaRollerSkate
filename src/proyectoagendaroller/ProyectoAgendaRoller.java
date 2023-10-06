@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package proyectoagendaroller;
 
-/**
- *
- * @author ROGER
- */
 public class ProyectoAgendaRoller {
 
     /**
@@ -15,6 +8,14 @@ public class ProyectoAgendaRoller {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //programa principal
+        Alumno alumnoCualquiera = new Alumno();
+        alumnoCualquiera.setNombre("pablito");
+        alumnoCualquiera.setCedula(1036665842);
+        alumnoCualquiera.setCelular(3216499956);
+        alumnoCualquiera.setTipoDePerfil(1);
+        
+        
     }
     
 }
