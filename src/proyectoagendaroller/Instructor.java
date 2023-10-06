@@ -7,9 +7,9 @@ public class Instructor extends Usuario {
         super(nombre, cedula, celular, tipoDePerfil, direccion, claveAcceso, preguntaSeguridad);
     }
     //Atributos
-    private String[] diasDisponibles;
-    private int[] diasDisponiblesMarca;
-    private int[] horasDisponibles;
+    private String[] diasDisponibles = new String[7];
+    private int[] diasDisponiblesMarca = new int[7];
+    private int[] horasDisponibles = new int[7];
     
     //Constructor
     public Instructor(){}

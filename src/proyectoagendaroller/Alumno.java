@@ -8,9 +8,9 @@ public class Alumno extends Usuario {
     }
     //Atributos
     private String nivel;
-    private String[] diasClase;
-    private int[] diaClaseMarca;
-    private int[] horaClase;
+    private String[] diasClase = new String[7];
+    private int[] diaClaseMarca = new int[7];
+    private int[] horaClase = new int[7];
     
     //Constructor
     public Alumno(){}

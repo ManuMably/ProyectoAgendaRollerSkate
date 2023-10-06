@@ -28,6 +28,42 @@ public class Perfiles {
             
     //-------------------------------------------
     
+    // Getter para numeroUsuariosRegistrados
+    public static int getNumeroUsuariosRegistrados() {
+        return numeroUsuariosRegistrados;
+    }
+    // Setter para numeroUsuariosRegistrados
+    public static void setNumeroUsuariosRegistrados(int numero) {
+        numeroUsuariosRegistrados = numero;
+    }
+    
+    // Getter para numeroInstructores
+    public static int getNumeroInstructores() {
+        return numeroInstructores;
+    }
+    // Setter para numeroInstructores
+    public static void setNumeroInstructores(int numero) {
+        numeroInstructores = numero;
+    }
+    
+    
+    // Getter para numeroAlumnos
+    public static int getNumeroAlumnos() {
+        return numeroAlumnos;
+    }
+    // Setter para numeroAlumnos
+    public static void setNumeroAlumnos(int numero) {
+        numeroAlumnos = numero;
+    }
+    
+    // Getter para numeroAdministradores
+    public static int getNumeroAdministradores() {
+        return numeroAdministradores;
+    }
+    // Setter para numeroAdministradores
+    public static void setNumeroAdministradores(int numero) {
+        numeroAdministradores = numero;
+    }
     // Getter para usuariosRegistrados
     public static Usuario[] getUsuariosRegistrados() {
         return usuariosRegistrados;
@@ -261,5 +297,9 @@ public class Perfiles {
                 System.err.println("Error al guardar usuarios registrados en el archivo.");
             }
         }
+    
+    
+    
+    
     
 }
