@@ -60,6 +60,10 @@ public class ProyectoAgendaRoller {
         
         
         
+        Perfiles.insertarUsuarios(alumnoCualquiera);
+        Perfiles.actualizarUsuariosRegistrados();
+        System.out.println(Perfiles.mostrarDatosUsuariosRegistrados());
+        
         
         
         

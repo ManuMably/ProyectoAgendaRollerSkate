@@ -244,6 +244,66 @@ public class Perfiles {
         }
     }
     
+    public static String mostrarDatosUsuariosRegistrados(){
+                    String mensaje = "";
+                    for (int i = 0; i < numeroUsuariosRegistrados; i++) {
+                        mensaje = "Nombre Usuario: " + usuariosRegistrados[i].getNombre() + "\n"
+                            + "Cedula Usuario: " + usuariosRegistrados[i].getCedula() + "\n"
+                            + "Celular Usuario: " + usuariosRegistrados[i].getCelular() + "\n"
+                            + "Tipo Usuario: " + usuariosRegistrados[i].getTipoDePerfil() + "\n"
+                            + "Direccion Usuario: " + usuariosRegistrados[i].getDireccion() + "\n" 
+                            + "Clave Usuario: " + usuariosRegistrados[i].getClaveAcceso() + "\n"
+                            + "Pregunta Seguridad: " + usuariosRegistrados[i].getPreguntaSeguridad() + "\n";
+                    
+                        // Añade más atributos específicos de cada tipo de usuario (alumno, instructor, administrador) según sea necesario
+                        if (usuariosRegistrados[i] instanceof Alumno) {
+                            // Agrega los atributos específicos de Alumno
+                           
+                            mensaje += "Nivel Usuario: " + ((Alumno) usuariosRegistrados[i]).getNivel() + "\n";
+                            mensaje += "Dias Clase Usuario: " + String.join(",", ((Alumno) usuariosRegistrados[i]).getDiasClase()) + "\n";
+                            mensaje += "Marc Clase Usuario: " + String.join(",", Arrays.stream(((Alumno) usuariosRegistrados[i]).getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + "\n";
+                            mensaje += "hora Clase Usuario: " + String.join(",", Arrays.stream(((Alumno) usuariosRegistrados[i]).getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)) + "\n";
+                            
+                        } else if (usuariosRegistrados[i] instanceof Instructor) {
+                            // Agrega los atributos específicos de Instructor
+                            
+                            mensaje += "Dias Disponible Usuario: " + String.join(",", ((Instructor) usuariosRegistrados[i]).getDiasDisponibles()) + "\n";
+                            mensaje += "Marc Disponible Usuario: " + String.join(",", Arrays.stream(((Instructor) usuariosRegistrados[i]).getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + "\n";
+                            mensaje += "hora Disponible Usuario: " + String.join(",", Arrays.stream(((Instructor) usuariosRegistrados[i]).getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)) + "\n";
+                                   
+                            
+                        } else if (usuariosRegistrados[i] instanceof Administrador) {
+                            // Agrega los atributos específicos de Administrador
+                            
+                            mensaje += "Segunda Clave Usuario: " + ((Administrador) usuariosRegistrados[i]).getSegundaClave()+ "\n";
+                        }
+                   }                
+        
+        return mensaje;
+    }
+    
+    
+    public static void actualizarUsuariosRegistrados(){
+        
+        for (int i = 0; i < numeroAlumnos; i++) {
+                            usuariosRegistrados[i] = usuariosAlumnos[i];
+                            numeroUsuariosRegistrados++;
+                        }
+        for (int i = numeroUsuariosRegistrados; i < numeroInstructores; i++) {
+                            int contadorInternoCero = 0;
+                            usuariosRegistrados[i] = usuariosAlumnos[contadorInternoCero];
+                            contadorInternoCero++;
+                            numeroUsuariosRegistrados++;
+                        }
+        for (int i = numeroUsuariosRegistrados; i < numeroAdministradores; i++) {
+                            int contadorInternoCero2 = 0;
+                            usuariosRegistrados[i] = usuariosAlumnos[contadorInternoCero2];
+                            numeroUsuariosRegistrados++;
+                            contadorInternoCero2++;
+                        }
+    
+        }
+    
     public static void guardarUsuariosRegistrados() {
             // Ruta del archivo plano donde se guardarán los usuarios
             String archivoUsuariosRegistrados = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\ProyectoAgendaRoller\\src\\proyectoagendaroller\\ArchivosPlanos\\usuariosRegistrados.txt";
@@ -297,9 +357,63 @@ public class Perfiles {
                 System.err.println("Error al guardar usuarios registrados en el archivo.");
             }
         }
+    public static void insertarUsuarios(Usuario usuarioNuevo){
+        
+        if (usuarioNuevo instanceof Alumno) {
+            Alumno alumnoNuevo = (Alumno) usuarioNuevo;
+            
+            int nuevoTamano = numeroAlumnos + 1;
+            Alumno[] nuevoArreglo = new Alumno[nuevoTamano];
+
+                // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+                System.arraycopy(usuariosAlumnos, 0, nuevoArreglo, 1, numeroAlumnos);
+
+                // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+                nuevoArreglo[0] = alumnoNuevo;
+
+                for (int i = 0; i < nuevoArreglo.length; i++) {
+                    usuariosAlumnos[i] = nuevoArreglo[i];
+                }
+                numeroAlumnos = nuevoTamano; 
+                
+            } else if (usuarioNuevo instanceof Instructor) {
+              Instructor instructorNuevo = (Instructor) usuarioNuevo;
+            
+                    int nuevoTamano = numeroInstructores + 1;
+                    Instructor[] nuevoArreglo = new Instructor[nuevoTamano];
+
+                    // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+                    System.arraycopy(usuariosInstructores, 0, nuevoArreglo, 1, numeroInstructores);
+
+                    // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+                    nuevoArreglo[0] = instructorNuevo;
+
+                    for (int i = 0; i < nuevoArreglo.length; i++) {
+                        usuariosInstructores[i] = nuevoArreglo[i];
+                    }
+                    numeroInstructores = nuevoTamano; 
+            
+                } else if (usuarioNuevo instanceof Administrador) {
+                    Administrador administradorNuevo = (Administrador) usuarioNuevo;
+            
+                        int nuevoTamano = numeroInstructores + 1;
+                        Administrador[] nuevoArreglo = new Administrador[nuevoTamano];
+
+                        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+                        System.arraycopy(usuariosAdministradores, 0, nuevoArreglo, 1, numeroAdministradores);
+
+                        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+                        nuevoArreglo[0] = administradorNuevo;
+
+                        for (int i = 0; i < nuevoArreglo.length; i++) {
+                            usuariosAdministradores[i] = nuevoArreglo[i];
+                        }
+                        numeroAdministradores = nuevoTamano; 
+                    
+            
+                    }
+ 
     
-    
-    
-    
-    
+        
+   }
 }
