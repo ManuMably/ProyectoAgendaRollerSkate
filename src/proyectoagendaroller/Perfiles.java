@@ -244,62 +244,150 @@ public class Perfiles {
         }
     }
     
-    public static void guardarUsuariosRegistrados() {
-            // Ruta del archivo plano donde se guardarán los usuarios
-            String archivoUsuariosRegistrados = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\ProyectoAgendaRoller\\src\\proyectoagendaroller\\ArchivosPlanos\\usuariosRegistrados.txt";
+    
+    public static String mostrarDatosUsuariosRegistrados() {
+    StringBuilder mensaje = new StringBuilder(); // Usamos un StringBuilder para construir la cadena acumulativa
 
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoUsuariosRegistrados))) {
-                // Recorre la lista de usuarios registrados y escribe cada usuario en el archivo
-                for (int i = 0; i < numeroUsuariosRegistrados; i++) {
-                    Usuario usuario = usuariosRegistrados[i]; // Supongamos que Usuario es la clase base de todos los tipos de usuarios
+    for (int i = 0; i < numeroUsuariosRegistrados; i++) {
+        mensaje.append("Nombre Usuario: ").append(usuariosRegistrados[i].getNombre()).append("\n")
+            .append("Cedula Usuario: ").append(usuariosRegistrados[i].getCedula()).append("\n")
+            .append("Celular Usuario: ").append(usuariosRegistrados[i].getCelular()).append("\n")
+            .append("Tipo Usuario: ").append(usuariosRegistrados[i].getTipoDePerfil()).append("\n")
+            .append("Direccion Usuario: ").append(usuariosRegistrados[i].getDireccion()).append("\n")
+            .append("Clave Usuario: ").append(usuariosRegistrados[i].getClaveAcceso()).append("\n")
+            .append("Pregunta Seguridad: ").append(usuariosRegistrados[i].getPreguntaSeguridad()).append("\n");
 
-                    // Escribe los atributos del usuario en una línea del archivo, separados por ;
-                    String linea = usuario.getNombre() + ";"
-                            + usuario.getCedula() + ";"
-                            + usuario.getCelular() + ";"
-                            + usuario.getTipoDePerfil() + ";"
-                            + usuario.getDireccion() + ";" 
-                            + usuario.getClaveAcceso() + ";"
-                            + usuario.getPreguntaSeguridad() + ";";
-                    
+        // Añade más atributos específicos de cada tipo de usuario (alumno, instructor, administrador) según sea necesario
+        if (usuariosRegistrados[i] instanceof Alumno) {
+            // Agrega los atributos específicos de Alumno
+            mensaje.append("Nivel Usuario: ").append(((Alumno) usuariosRegistrados[i]).getNivel()).append("\n");
+            mensaje.append("Dias Clase Usuario: ").append(String.join(",", ((Alumno) usuariosRegistrados[i]).getDiasClase())).append("\n");
+            mensaje.append("Marc Clase Usuario: ").append(String.join(",", Arrays.stream(((Alumno) usuariosRegistrados[i]).getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new))).append("\n");
+            mensaje.append("Hora Clase Usuario: ").append(String.join(",", Arrays.stream(((Alumno) usuariosRegistrados[i]).getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new))).append("\n");
 
-                        // Añade más atributos específicos de cada tipo de usuario (alumno, instructor, administrador) según sea necesario
-                        if (usuario instanceof Alumno) {
-                            // Agrega los atributos específicos de Alumno
-                            Alumno alumno = (Alumno) usuario; 
-                            linea += ((Alumno) usuario).getNivel() + ";";
-                            linea += String.join(",", alumno.getDiasClase()) + ";";
-                            linea += String.join(",", Arrays.stream(alumno.getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-                            linea += String.join(",", Arrays.stream(alumno.getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-                            
-                        } else if (usuario instanceof Instructor) {
-                            // Agrega los atributos específicos de Instructor
-                            Instructor instructor = (Instructor) usuario;
-                            linea += String.join(",", instructor.getDiasDisponibles()) + ";";
-                            linea += String.join(",", Arrays.stream(instructor.getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-                            linea += String.join(",", Arrays.stream(instructor.getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-                            
-                            
-                            
-                        } else if (usuario instanceof Administrador) {
-                            // Agrega los atributos específicos de Administrador
-                            Administrador administrador = (Administrador) usuario;
-                            linea += ((Administrador) administrador).getSegundaClave()+ ";";
-                        }
+        } else if (usuariosRegistrados[i] instanceof Instructor) {
+            // Agrega los atributos específicos de Instructor
+            mensaje.append("Dias Disponible Usuario: ").append(String.join(",", ((Instructor) usuariosRegistrados[i]).getDiasDisponibles())).append("\n");
+            mensaje.append("Marc Disponible Usuario: ").append(String.join(",", Arrays.stream(((Instructor) usuariosRegistrados[i]).getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new))).append("\n");
+            mensaje.append("Hora Disponible Usuario: ").append(String.join(",", Arrays.stream(((Instructor) usuariosRegistrados[i]).getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new))).append("\n");
 
-                        // Escribe la línea en el archivo
-                        escritor.write(linea);
-                        escritor.newLine();
-                }
-
-                    System.out.println("Usuarios registrados guardados en el archivo.");
-            } catch (IOException e) {
-                System.err.println("Error al guardar usuarios registrados en el archivo.");
-            }
+        } else if (usuariosRegistrados[i] instanceof Administrador) {
+            // Agrega los atributos específicos de Administrador
+            mensaje.append("Segunda Clave Usuario: ").append(((Administrador) usuariosRegistrados[i]).getSegundaClave()).append("\n");
         }
+        // Agrega una línea en blanco entre cada usuario
+        mensaje.append("\n");
+    }
+
+        return mensaje.toString();
+    }
     
+    public static void actualizarUsuariosRegistrados() {
+    // Primero, reiniciamos el contador de usuarios registrados a 0
+    numeroUsuariosRegistrados = 0;
+
+    // Luego, copiamos los usuarios de cada tipo al arreglo usuariosRegistrados
+    for (int i = 0; i < numeroAlumnos; i++) {
+        usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAlumnos[i];
+        numeroUsuariosRegistrados++;
+    }
+
+    for (int i = 0; i < numeroInstructores; i++) {
+        usuariosRegistrados[numeroUsuariosRegistrados] = usuariosInstructores[i];
+        numeroUsuariosRegistrados++;
+    }
+
+    for (int i = 0; i < numeroAdministradores; i++) {
+        usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAdministradores[i];
+        numeroUsuariosRegistrados++;
+    }
+}
     
+    public static void guardarUsuariosRegistrados() {
+    String archivoUsuariosRegistrados = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\ProyectoAgendaRoller\\src\\proyectoagendaroller\\ArchivosPlanos\\usuariosRegistrados.txt";
+
+    try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoUsuariosRegistrados))) {
+        for (int i = 0; i < numeroUsuariosRegistrados; i++) {
+            Usuario usuario = usuariosRegistrados[i];
+            String linea = usuario.getNombre() + ";"
+                    + usuario.getCedula() + ";"
+                    + usuario.getCelular() + ";"
+                    + usuario.getTipoDePerfil() + ";"
+                    + usuario.getDireccion() + ";"
+                    + usuario.getClaveAcceso() + ";"
+                    + usuario.getPreguntaSeguridad() + ";";
+
+            if (usuario instanceof Alumno) {
+                Alumno alumno = (Alumno) usuario;
+                linea += alumno.getNivel() + ";";
+                linea += String.join(",", alumno.getDiasClase()) + ";";
+                linea += String.join(",", Arrays.stream(alumno.getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
+                linea += String.join(",", Arrays.stream(alumno.getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
+            } else if (usuario instanceof Instructor) {
+                Instructor instructor = (Instructor) usuario;
+                linea += String.join(",", instructor.getDiasDisponibles()) + ";";
+                linea += String.join(",", Arrays.stream(instructor.getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
+                linea += String.join(",", Arrays.stream(instructor.getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
+            } else if (usuario instanceof Administrador) {
+                Administrador administrador = (Administrador) usuario;
+                linea += administrador.getSegundaClave() + ";";
+            }
+
+            escritor.write(linea);
+            escritor.newLine();
+        }
+
+        System.out.println("Usuarios registrados guardados en el archivo.");
+    } catch (IOException e) {
+        System.err.println("Error al guardar usuarios registrados en el archivo: " + e.getMessage());
+    }
+}
     
-    
-    
+    public static void insertarUsuarios(Usuario usuarioNuevo) {
+    if (usuarioNuevo instanceof Alumno) {
+        Alumno alumnoNuevo = (Alumno) usuarioNuevo;
+
+        int nuevoTamano = numeroAlumnos + 1;
+        Alumno[] nuevoArreglo = new Alumno[nuevoTamano];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArreglo[0] = alumnoNuevo;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(usuariosAlumnos, 0, nuevoArreglo, 1, numeroAlumnos);
+
+        usuariosAlumnos = nuevoArreglo;
+        numeroAlumnos = nuevoTamano;
+
+    } else if (usuarioNuevo instanceof Instructor) {
+        Instructor instructorNuevo = (Instructor) usuarioNuevo;
+
+        int nuevoTamano = numeroInstructores + 1;
+        Instructor[] nuevoArreglo = new Instructor[nuevoTamano];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArreglo[0] = instructorNuevo;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(usuariosInstructores, 0, nuevoArreglo, 1, numeroInstructores);
+
+        usuariosInstructores = nuevoArreglo;
+        numeroInstructores = nuevoTamano;
+
+    } else if (usuarioNuevo instanceof Administrador) {
+        Administrador administradorNuevo = (Administrador) usuarioNuevo;
+
+        int nuevoTamano = numeroAdministradores + 1;
+        Administrador[] nuevoArreglo = new Administrador[nuevoTamano];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArreglo[0] = administradorNuevo;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(usuariosAdministradores, 0, nuevoArreglo, 1, numeroAdministradores);
+
+        usuariosAdministradores = nuevoArreglo;
+        numeroAdministradores = nuevoTamano;
+    }
+}
 }
