@@ -76,7 +76,7 @@ public class ProyectoAgendaRoller {
                                 alumnoNuevo.setHoraClase(horasClase);
                                 
                                 //aqui se inserta con el metodo de perfiles al nuevo alumno
-                                Perfiles.insertarUsuarios(alumnoNuevo);
+                                Perfiles.registrarUsuario(alumnoNuevo);
                                 System.out.println("Se ha insertado correctamente, Actualizar la lista de usuarios registrados para visualizarlo.");
                                 
 
@@ -126,7 +126,7 @@ public class ProyectoAgendaRoller {
                                 instructorNuevo.setHorasDisponibles(horasDisponible);
                                 
                                 //aqui se inserta con el metodo insertar usuarios a la lista el instructor nuevo
-                                Perfiles.insertarUsuarios(instructorNuevo);
+                                Perfiles.registrarUsuario(instructorNuevo);
                                 System.out.println("Se ha insertado correctamente, Actualizar la lista de usuarios registrados para visualizarlo.");
                             
                                 break;
@@ -149,7 +149,7 @@ public class ProyectoAgendaRoller {
                                 administradorNuevo.setSegundaClave(leer.next());
                                 
                                 //aqui se inserta con el metodo insertar usuarios a la lista el administrador nuevo
-                                Perfiles.insertarUsuarios(administradorNuevo);
+                                Perfiles.registrarUsuario(administradorNuevo);
                                 System.out.println("Se ha insertado correctamente, Actualizar la lista de usuarios registrados para visualizarlo.");
                             
                                 break;

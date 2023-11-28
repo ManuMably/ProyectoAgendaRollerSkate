@@ -14,6 +14,7 @@ public class Alumno extends Usuario {
     
     //Constructor
     public Alumno(){}
+    
     public Alumno(String nombre, int cedula, long celular, int tipoDePerfil, String direccion, String claveAcceso, String preguntaSeguridad, String nivel, String[] diasClase, int[] diaClaseMarca, int[] horaClase){
         this.nivel = nivel;
         this.diasClase = diasClase;

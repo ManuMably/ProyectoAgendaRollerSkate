@@ -343,7 +343,7 @@ public class Perfiles {
     }
 }
     
-    public static void insertarUsuarios(Usuario usuarioNuevo) {
+    public static void registrarUsuario(Usuario usuarioNuevo) {
     if (usuarioNuevo instanceof Alumno) {
         Alumno alumnoNuevo = (Alumno) usuarioNuevo;
 
@@ -390,4 +390,165 @@ public class Perfiles {
         numeroAdministradores = nuevoTamano;
     }
 }
+    public static Usuario buscarPerfilCedula(Usuario busqueda){
+        
+        for (Usuario usuario : usuariosRegistrados) {
+            int cedulaUsuario = usuario.getCedula();
+            int cedulaBusqueda = busqueda.getCedula();
+            
+            if (cedulaBusqueda == cedulaUsuario) {
+                return usuario;   
+            }   
+        }
+        
+        // se  envia un usuario vacio en caso de no encontrar el de la bsuqueda
+        Usuario noEncontrado = new Usuario();
+        
+        // el tipo de perfil 4 permite identificar los usuarios nulos cuanod no se encuentra algun usuario o es necesario identificarlo a lo largo del flujo
+        noEncontrado.setTipoDePerfil(4);
+        
+        return noEncontrado;    
+    }
+    
+    public static void modificarPerfilUsuario (Usuario modificado){
+        for (Usuario usuario : usuariosRegistrados) {
+            if (usuario.getCedula()== modificado.getCedula() && usuario.getTipoDePerfil() == modificado.getTipoDePerfil()) {
+                int tipoPerfilModificado = modificado.getTipoDePerfil();
+                switch (tipoPerfilModificado) {
+                    case 1:                      
+                        
+                        //se asginan los valores de instructor al usuario
+                        usuario.setCelular(modificado.getCelular());
+                        usuario.setNombre(modificado.getNombre());
+                        usuario.setDireccion(modificado.getDireccion());
+                        usuario.setClaveAcceso(modificado.getClaveAcceso());
+                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
+                        ((Instructor) usuario).setDiasDisponibles(((Instructor)modificado).getDiasDisponibles());
+                        ((Instructor) usuario).setDiasDisponiblesMarca(((Instructor)modificado).getDiasDisponiblesMarca());
+                        ((Instructor) usuario).setHorasDisponibles(((Instructor)modificado).getHorasDisponibles());
+                        
+                        break;
+                    case 2:
+                        
+                        // se asignan los valores de alumno al usuario
+                        usuario.setCelular(modificado.getCelular());
+                        usuario.setNombre(modificado.getNombre());
+                        usuario.setDireccion(modificado.getDireccion());
+                        usuario.setClaveAcceso(modificado.getClaveAcceso());
+                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
+                        ((Alumno) usuario).setNivel(((Alumno)modificado).getNivel());
+                        ((Alumno) usuario).setDiasClase(((Alumno)modificado).getDiasClase());
+                        ((Alumno) usuario).setDiaClaseMarca(((Alumno)modificado).getDiaClaseMarca());
+                        ((Alumno) usuario).setHoraClase(((Alumno)modificado).getHoraClase());                        
+                        
+                        break;
+                    case 3:
+                        
+                        // se asignan los valores de administrador al usuario
+                        usuario.setCelular(modificado.getCelular());
+                        usuario.setNombre(modificado.getNombre());
+                        usuario.setDireccion(modificado.getDireccion());
+                        usuario.setClaveAcceso(modificado.getClaveAcceso());
+                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
+                        ((Administrador) usuario).setSegundaClave(((Administrador)modificado).getSegundaClave());
+                        
+                        
+                        
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            }
+            
+        }
+    
+    }
+    public static int ordenarUsuariosRegistrados(int opcion, int opcionaux){
+        switch (opcion) {
+            case 1:
+                //Metodo ordenar los usuarios registrados por nombre uso del metodo burbuja de ordenamiento
+                for (int i = 0; i < numeroUsuariosRegistrados - 1; i++) {
+                    for (int j = 0; j < numeroUsuariosRegistrados - i - 1; j++) {
+                        // Comparar los nombres de los usuarios y swap si es necesario
+                        if (usuariosRegistrados[j].getNombre().compareTo(usuariosRegistrados[j + 1].getNombre()) > 0) {
+                        // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                        Usuario temp = usuariosRegistrados[j];
+                        usuariosRegistrados[j] = usuariosRegistrados[j + 1];
+                        usuariosRegistrados[j + 1] = temp;
+                        }
+                    }
+                }
+                return 1;
+            case 2:
+                // con metodo burbuja ordenamos los usuarios registrados por su cedula
+                for (int i = 0; i < numeroUsuariosRegistrados - 1; i++) {
+                    for (int j = 0; j < numeroUsuariosRegistrados - i - 1; j++) {
+                        // Comparar las cédulas de los usuarios y swap si es necesario
+                        if (usuariosRegistrados[j].getCedula() > usuariosRegistrados[j + 1].getCedula()) {
+                            // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                            Usuario temp = usuariosRegistrados[j];
+                            usuariosRegistrados[j] = usuariosRegistrados[j + 1];
+                            usuariosRegistrados[j + 1] = temp;
+                        }
+                    }
+                }
+                
+                return 1;
+            case 3:
+                // ordenar solo de los alumnos
+                switch (opcionaux) {
+                    case 1:
+                        //Metodo ordenar los alumnos registrados por nombre uso del metodo burbuja de ordenamiento
+                        for (int i = 0; i < numeroAlumnos - 1; i++) {
+                            for (int j = 0; j < numeroAlumnos - i - 1; j++) {
+                                // Comparar los nombres de los usuarios y swap si es necesario
+                                if (usuariosAlumnos[j].getNombre().compareTo(usuariosAlumnos[j + 1].getNombre()) > 0) {
+                                // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                                Alumno temp = usuariosAlumnos[j];
+                                usuariosAlumnos[j] = usuariosAlumnos[j + 1];
+                                usuariosAlumnos[j + 1] = temp;
+                                }
+                            }
+                        }
+                        
+                        return 1;
+                    case 2:
+                          //Metodo ordenar los alumnos registrados por nombre uso del metodo burbuja de ordenamiento
+                          for (int i = 0; i < numeroAlumnos - 1; i++) {
+                                for (int j = 0; j < numeroAlumnos - i - 1; j++) {
+                                    // Comparar los nombres de los usuarios y swap si es necesario
+                                    if (usuariosAlumnos[j].getNivel().compareTo(usuariosAlumnos[j + 1].getNivel()) > 0) {
+                                    // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                                    Alumno temp = usuariosAlumnos[j];
+                                    usuariosAlumnos[j] = usuariosAlumnos[j + 1];
+                                    usuariosAlumnos[j + 1] = temp;
+                                    }
+                                }
+                            }
+                        
+                        return 1;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    default:
+                        return -1;
+                }
+                
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            default:
+                return -1;
+        }
+    
+        return -1;
+    }
+    
 }
