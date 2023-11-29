@@ -1,6 +1,15 @@
 
 package proyectoagendaroller;
 
+// imports de conexion a la base de datos
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -10,6 +19,40 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Perfiles {
+    // datos de conexion
+    //acceso ala base de datos segun el nombre que tiene la base de datos
+     public static final String ubicacion="jdbc:mysql://localhost/agendaroller";
+    //
+     //nombre del usuario
+    public static final String usuario = "root";
+
+    //contraseña del usuario aqui no tiene 
+    public static final String contraseña = "";
+
+    PreparedStatement ps;//esto es para poner hablar java con mysql sin esto no hay coneccion
+
+    ResultSet rs;// esto es el resultado de una consulta
+
+    public static com.mysql.jdbc.Connection getConnection(){//coneccion 
+
+        com.mysql.jdbc.Connection con=null;
+
+        try { //se utiliza para que no se presenten tanto errores
+
+            Class.forName("com.mysql.jdbc.Driver");//coneccion de la libreria con la base de datos
+
+            //esto ase la coneccion entre la base de datos y la aplicacion
+            con= (com.mysql.jdbc.Connection) DriverManager.getConnection(ubicacion,usuario,contraseña);
+
+        } catch (Exception e) {
+            System.out.println(e);//imprime los errores 
+
+        }
+
+        return con;//finaliza la ejecucion
+
+    }
+    
     // atributos correspondiestes para manipular los perfiles
     private static Usuario[] usuariosRegistrados = new Usuario[220];
     private static int numeroUsuariosRegistrados = 0;
@@ -98,6 +141,55 @@ public class Perfiles {
     // Setter para usuariosAdministradores
     public static void setUsuariosAdministradores(Administrador[] usuariosAdministradores) {
         Perfiles.usuariosAdministradores = usuariosAdministradores;
+    }
+    
+    public int cargarDatosRegistrados(){
+        com.mysql.jdbc.Connection con = null;
+
+        try{
+            con = getConnection();
+
+            //este codigo busca por medio de select * from y la cedula del usuario
+            ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =1");
+
+
+            rs= ps.executeQuery();//codigo para informacion de la base de datos
+            while (rs.next()) { 
+                usuariosInstructores[numeroInstructores] = new Instructor();
+                usuariosInstructores[numeroInstructores].setNombre(rs.getString("Nombre"));
+                usuariosInstructores[numeroInstructores].setCedula(Integer.parseInt(rs.getString("Documento")));
+                usuariosInstructores[numeroInstructores].setCelular(Long.parseLong(rs.getString("Celular")));
+                usuariosInstructores[numeroInstructores].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
+                usuariosInstructores[numeroInstructores].setDireccion(rs.getString("Direccion"));
+                usuariosInstructores[numeroInstructores].setClaveAcceso(rs.getString("Clave"));
+                usuariosInstructores[numeroInstructores].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
+                usuariosInstructores[numeroInstructores].setDiasDisponibles(rs.getString("DiasDisponibles").split(","));
+                
+                String[] diasDisponiblesMarca = rs.getString("DiasDisponiblesMarca").split(",");
+                int[] marcacion = new int[diasDisponiblesMarca.length];
+
+                for (int i = 0; i < diasDisponiblesMarca.length; i++) {
+                    marcacion[i] = Integer.parseInt(diasDisponiblesMarca[i]);
+                } 
+                usuariosInstructores[numeroInstructores].setDiasDisponiblesMarca(marcacion);
+                
+                String[] horasDisponibles = rs.getString("HorasDisponibles").split(",");
+                int[] horasDisp = new int[horasDisponibles.length];
+
+                for (int i = 0; i < horasDisponibles.length; i++) {
+                    horasDisp[i] = Integer.parseInt(horasDisponibles[i]);
+                } 
+                usuariosInstructores[numeroInstructores].setHorasDisponibles(horasDisp);
+                
+                
+            }
+            
+
+        }catch(Exception e){
+            System.err.println(e);
+        }
+    
+        return -1;
     }
     
     public static void cargarUsuariosRegistrados(){
@@ -343,7 +435,7 @@ public class Perfiles {
     }
 }
     
-    public static void insertarUsuarios(Usuario usuarioNuevo) {
+    public static void registrarUsuario(Usuario usuarioNuevo) {
     if (usuarioNuevo instanceof Alumno) {
         Alumno alumnoNuevo = (Alumno) usuarioNuevo;
 
@@ -390,4 +482,165 @@ public class Perfiles {
         numeroAdministradores = nuevoTamano;
     }
 }
+    public static Usuario buscarPerfilCedula(Usuario busqueda){
+        
+        for (Usuario usuario : usuariosRegistrados) {
+            int cedulaUsuario = usuario.getCedula();
+            int cedulaBusqueda = busqueda.getCedula();
+            
+            if (cedulaBusqueda == cedulaUsuario) {
+                return usuario;   
+            }   
+        }
+        
+        // se  envia un usuario vacio en caso de no encontrar el de la bsuqueda
+        Usuario noEncontrado = new Usuario();
+        
+        // el tipo de perfil 4 permite identificar los usuarios nulos cuanod no se encuentra algun usuario o es necesario identificarlo a lo largo del flujo
+        noEncontrado.setTipoDePerfil(4);
+        
+        return noEncontrado;    
+    }
+    
+    public static void modificarPerfilUsuario (Usuario modificado){
+        for (Usuario usuario : usuariosRegistrados) {
+            if (usuario.getCedula()== modificado.getCedula() && usuario.getTipoDePerfil() == modificado.getTipoDePerfil()) {
+                int tipoPerfilModificado = modificado.getTipoDePerfil();
+                switch (tipoPerfilModificado) {
+                    case 1:                      
+                        
+                        //se asginan los valores de instructor al usuario
+                        usuario.setCelular(modificado.getCelular());
+                        usuario.setNombre(modificado.getNombre());
+                        usuario.setDireccion(modificado.getDireccion());
+                        usuario.setClaveAcceso(modificado.getClaveAcceso());
+                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
+                        ((Instructor) usuario).setDiasDisponibles(((Instructor)modificado).getDiasDisponibles());
+                        ((Instructor) usuario).setDiasDisponiblesMarca(((Instructor)modificado).getDiasDisponiblesMarca());
+                        ((Instructor) usuario).setHorasDisponibles(((Instructor)modificado).getHorasDisponibles());
+                        
+                        break;
+                    case 2:
+                        
+                        // se asignan los valores de alumno al usuario
+                        usuario.setCelular(modificado.getCelular());
+                        usuario.setNombre(modificado.getNombre());
+                        usuario.setDireccion(modificado.getDireccion());
+                        usuario.setClaveAcceso(modificado.getClaveAcceso());
+                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
+                        ((Alumno) usuario).setNivel(((Alumno)modificado).getNivel());
+                        ((Alumno) usuario).setDiasClase(((Alumno)modificado).getDiasClase());
+                        ((Alumno) usuario).setDiaClaseMarca(((Alumno)modificado).getDiaClaseMarca());
+                        ((Alumno) usuario).setHoraClase(((Alumno)modificado).getHoraClase());                        
+                        
+                        break;
+                    case 3:
+                        
+                        // se asignan los valores de administrador al usuario
+                        usuario.setCelular(modificado.getCelular());
+                        usuario.setNombre(modificado.getNombre());
+                        usuario.setDireccion(modificado.getDireccion());
+                        usuario.setClaveAcceso(modificado.getClaveAcceso());
+                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
+                        ((Administrador) usuario).setSegundaClave(((Administrador)modificado).getSegundaClave());
+                        
+                        
+                        
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            }
+            
+        }
+    
+    }
+    public static int ordenarUsuariosRegistrados(int opcion, int opcionaux){
+        switch (opcion) {
+            case 1:
+                //Metodo ordenar los usuarios registrados por nombre uso del metodo burbuja de ordenamiento
+                for (int i = 0; i < numeroUsuariosRegistrados - 1; i++) {
+                    for (int j = 0; j < numeroUsuariosRegistrados - i - 1; j++) {
+                        // Comparar los nombres de los usuarios y swap si es necesario
+                        if (usuariosRegistrados[j].getNombre().compareTo(usuariosRegistrados[j + 1].getNombre()) > 0) {
+                        // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                        Usuario temp = usuariosRegistrados[j];
+                        usuariosRegistrados[j] = usuariosRegistrados[j + 1];
+                        usuariosRegistrados[j + 1] = temp;
+                        }
+                    }
+                }
+                return 1;
+            case 2:
+                // con metodo burbuja ordenamos los usuarios registrados por su cedula
+                for (int i = 0; i < numeroUsuariosRegistrados - 1; i++) {
+                    for (int j = 0; j < numeroUsuariosRegistrados - i - 1; j++) {
+                        // Comparar las cédulas de los usuarios y swap si es necesario
+                        if (usuariosRegistrados[j].getCedula() > usuariosRegistrados[j + 1].getCedula()) {
+                            // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                            Usuario temp = usuariosRegistrados[j];
+                            usuariosRegistrados[j] = usuariosRegistrados[j + 1];
+                            usuariosRegistrados[j + 1] = temp;
+                        }
+                    }
+                }
+                
+                return 1;
+            case 3:
+                // ordenar solo de los alumnos
+                switch (opcionaux) {
+                    case 1:
+                        //Metodo ordenar los alumnos registrados por nombre uso del metodo burbuja de ordenamiento
+                        for (int i = 0; i < numeroAlumnos - 1; i++) {
+                            for (int j = 0; j < numeroAlumnos - i - 1; j++) {
+                                // Comparar los nombres de los usuarios y swap si es necesario
+                                if (usuariosAlumnos[j].getNombre().compareTo(usuariosAlumnos[j + 1].getNombre()) > 0) {
+                                // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                                Alumno temp = usuariosAlumnos[j];
+                                usuariosAlumnos[j] = usuariosAlumnos[j + 1];
+                                usuariosAlumnos[j + 1] = temp;
+                                }
+                            }
+                        }
+                        
+                        return 1;
+                    case 2:
+                          //Metodo ordenar los alumnos registrados por nombre uso del metodo burbuja de ordenamiento
+                          for (int i = 0; i < numeroAlumnos - 1; i++) {
+                                for (int j = 0; j < numeroAlumnos - i - 1; j++) {
+                                    // Comparar los nombres de los usuarios y swap si es necesario
+                                    if (usuariosAlumnos[j].getNivel().compareTo(usuariosAlumnos[j + 1].getNivel()) > 0) {
+                                    // Intercambiar usuariosRegistrados[j] y usuariosRegistrados[j + 1]
+                                    Alumno temp = usuariosAlumnos[j];
+                                    usuariosAlumnos[j] = usuariosAlumnos[j + 1];
+                                    usuariosAlumnos[j + 1] = temp;
+                                    }
+                                }
+                            }
+                        
+                        return 1;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    default:
+                        return -1;
+                }
+                
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            default:
+                return -1;
+        }
+    
+        return -1;
+    }
+    
 }
