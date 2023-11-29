@@ -149,7 +149,7 @@ public class Perfiles {
         try{
             con = getConnection();
 
-            //este codigo busca por medio de select * from y la cedula del usuario
+            //este codigo busca por medio de select * from y el tipo de perfil de lusuario en este caso es para los instructores
             ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =1");
 
 
@@ -181,10 +181,82 @@ public class Perfiles {
                 } 
                 usuariosInstructores[numeroInstructores].setHorasDisponibles(horasDisp);
                 
+                //se agrega tambien a la lista general de usuarios registrados
+                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosInstructores[numeroInstructores];
+                            numeroUsuariosRegistrados++;
+                //se aumenta en la variable el numero de instructore actual
+                            numeroInstructores++;
+                
+                
+            }
+            //este codigo busca por medio de select * from y el tipo de perfil del usuario en este caso para los alumnos
+            ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =2");
+
+
+            rs= ps.executeQuery();//codigo para informacion de la base de datos
+            while (rs.next()) { 
+                usuariosAlumnos[numeroAlumnos] = new Alumno();
+                usuariosAlumnos[numeroAlumnos].setNombre(rs.getString("Nombre"));
+                usuariosAlumnos[numeroAlumnos].setCedula(Integer.parseInt(rs.getString("Documento")));
+                usuariosAlumnos[numeroAlumnos].setCelular(Long.parseLong(rs.getString("Celular")));
+                usuariosAlumnos[numeroAlumnos].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
+                usuariosAlumnos[numeroAlumnos].setDireccion(rs.getString("Direccion"));
+                usuariosAlumnos[numeroAlumnos].setClaveAcceso(rs.getString("Clave"));
+                usuariosAlumnos[numeroAlumnos].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
+                usuariosAlumnos[numeroAlumnos].setNivel(rs.getString("Nivel"));
+                usuariosAlumnos[numeroAlumnos].setDiasClase(rs.getString("DiasClase").split(","));
+                
+                String[] diasClaseMarca = rs.getString("DiasMarca").split(",");
+                int[] marcacion = new int[diasClaseMarca.length];
+
+                for (int i = 0; i < diasClaseMarca.length; i++) {
+                    marcacion[i] = Integer.parseInt(diasClaseMarca[i]);
+                } 
+                usuariosAlumnos[numeroAlumnos].setDiaClaseMarca(marcacion);
+                
+                String[] horaClase = rs.getString("HorasClase").split(",");
+                int[] horasClase = new int[horaClase.length];
+
+                for (int i = 0; i < horaClase.length; i++) {
+                    horasClase[i] = Integer.parseInt(horaClase[i]);
+                } 
+                usuariosAlumnos[numeroAlumnos].setHoraClase(horasClase);
+                
+                //se agrega tambien a la lista general de usuarios registrados
+                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAlumnos[numeroAlumnos];
+                            numeroUsuariosRegistrados++;
+                //se aumenta en la variable el numero de Alumnos actual
+                            numeroAlumnos++;
+                
                 
             }
             
+            //este codigo busca por medio de select * from y el tipo de perfil del usuario en este caso para los administradores
+            ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =3");
 
+
+            rs= ps.executeQuery();//codigo para informacion de la base de datos
+            while (rs.next()) { 
+                usuariosAdministradores[numeroAdministradores] = new Administrador();
+                usuariosAdministradores[numeroAdministradores].setNombre(rs.getString("Nombre"));
+                usuariosAdministradores[numeroAdministradores].setCedula(Integer.parseInt(rs.getString("Documento")));
+                usuariosAdministradores[numeroAdministradores].setCelular(Long.parseLong(rs.getString("Celular")));
+                usuariosAdministradores[numeroAdministradores].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
+                usuariosAdministradores[numeroAdministradores].setDireccion(rs.getString("Direccion"));
+                usuariosAdministradores[numeroAdministradores].setClaveAcceso(rs.getString("Clave"));
+                usuariosAdministradores[numeroAdministradores].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
+                usuariosAdministradores[numeroAdministradores].setSegundaClave(rs.getString("SegundaClave"));
+
+                
+                //se agrega tambien a la lista general de usuarios registrados
+                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAdministradores[numeroAdministradores];
+                            numeroUsuariosRegistrados++;
+                //se aumenta en la variable el numero de Alumnos actual
+                            numeroAdministradores++;
+                
+            }
+            
+                return 1;
         }catch(Exception e){
             System.err.println(e);
         }
@@ -192,149 +264,7 @@ public class Perfiles {
         return -1;
     }
     
-    public static void cargarUsuariosRegistrados(){
-        // se guarda la direccion del archivo plano en un string
-        String archivoUsuariosRegistrados = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\ProyectoAgendaRoller\\src\\proyectoagendaroller\\ArchivosPlanos\\usuariosRegistrados.txt";
-        
-        // try para manejo de exepciones
-        try {
-                //en una variable tipo File guardamos el archivo plano
-                File archivoPlano = new File(archivoUsuariosRegistrados);
-                
-                //luego se lee el archivo plano
-                Scanner leer = new Scanner(archivoPlano);
-                
-                //contador de cada linea 
-                int contadorLineas = 0;
-                
-                while (leer.hasNextLine()) {
-                String linea = leer.nextLine();
-                
-                String[] vectorDatosDivididos = linea.split(";");
-                
-                //antes de emepezar a llenar los vectores con los objetos verificamos el tipo de perfil para diferenciarlos
-                //variable que define el perfil de cada linea
-                int perfilTipo = Integer.parseInt(vectorDatosDivididos[3]);
-                    switch (perfilTipo) {
-                        case 1 -> {
-                            // en caso de que el tipo de perfil sea 1 que corresponde al perfil de alumnos
-                            
-                            //en la posicion del contador del numero de alumnos se va agregando el alumno en el arreglo desde el archivo plano
-                            usuariosAlumnos[numeroAlumnos] = new Alumno();
-                            usuariosAlumnos[numeroAlumnos].setNombre(vectorDatosDivididos[0]);
-                            usuariosAlumnos[numeroAlumnos].setCedula(Integer.parseInt(vectorDatosDivididos[1]));
-                            usuariosAlumnos[numeroAlumnos].setCelular(Long.parseLong(vectorDatosDivididos[2]));
-                            usuariosAlumnos[numeroAlumnos].setTipoDePerfil(Integer.parseInt(vectorDatosDivididos[3]));
-                            usuariosAlumnos[numeroAlumnos].setDireccion(vectorDatosDivididos[4]);
-                            usuariosAlumnos[numeroAlumnos].setClaveAcceso(vectorDatosDivididos[5]);
-                            usuariosAlumnos[numeroAlumnos].setPreguntaSeguridad(vectorDatosDivididos[6]);
-                            usuariosAlumnos[numeroAlumnos].setNivel(vectorDatosDivididos[7]);
-                            usuariosAlumnos[numeroAlumnos].setDiasClase(vectorDatosDivididos[8].split(","));
-                            
-                            //al ser un arreglo de numeros se deben almacenar y luego castear
-                            String[] arregloNumerosAuxiliar =vectorDatosDivididos[9].split(",");
-                            int[] arregloDeNumeros = new int[arregloNumerosAuxiliar.length];
-                            // Convertir cada "numero" a un número int y almacenar en el arreglo
-                            for (int i = 0; i < arregloNumerosAuxiliar.length; i++) {
-                                arregloDeNumeros[i] = Integer.parseInt(arregloNumerosAuxiliar[i]);
-                            }
-                            //luego ese arreglo de numeros se almacena en la marca de los dias de clase que es un arreglo de numeros
-                            usuariosAlumnos[numeroAlumnos].setDiaClaseMarca(arregloDeNumeros);
-                            
-                            //al ser un arreglo de numeros se deben almacenar y luego castear
-                            String[] arregloNumerosAuxiliar2 =vectorDatosDivididos[10].split(",");
-                            int[] arregloDeNumeros2 = new int[arregloNumerosAuxiliar2.length];
-                            // Convertir cada "numero" a un número int y almacenar en el arreglo
-                            for (int i = 0; i < arregloNumerosAuxiliar.length; i++) {
-                                arregloDeNumeros2[i] = Integer.parseInt(arregloNumerosAuxiliar2[i]);
-                            }
-                            //luego ese arreglo de numeros se almacena en la marca de los dias de clase que es un arreglo de numeros
-                            usuariosAlumnos[numeroAlumnos].setHoraClase(arregloDeNumeros2);
-                            
-                            
-                            
-                            //se agrega tambien a la lista general de usuarios registrados
-                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAlumnos[numeroAlumnos];
-                            numeroUsuariosRegistrados++;
-                            //se aumenta en la variable el numero de alumnos actual
-                            numeroAlumnos++;
-                            
-                        }
-                        case 2 -> {
-                            // en caso de que el tipo de perfil sea 2 que corresponde a los instructores
-                            
-                            // en la posicion del contador del numero de instructores se va agregando el instructor desde el archivo plano
-                            usuariosInstructores[numeroInstructores] = new Instructor();
-                            usuariosInstructores[numeroInstructores].setNombre(vectorDatosDivididos[0]);
-                            usuariosInstructores[numeroInstructores].setCedula(Integer.parseInt(vectorDatosDivididos[1]));
-                            usuariosInstructores[numeroInstructores].setCelular(Long.parseLong(vectorDatosDivididos[2]));
-                            usuariosInstructores[numeroInstructores].setTipoDePerfil(Integer.parseInt(vectorDatosDivididos[3]));
-                            usuariosInstructores[numeroInstructores].setDireccion(vectorDatosDivididos[4]);
-                            usuariosInstructores[numeroInstructores].setClaveAcceso(vectorDatosDivididos[5]);
-                            usuariosInstructores[numeroInstructores].setPreguntaSeguridad(vectorDatosDivididos[6]);
-                            usuariosInstructores[numeroInstructores].setDiasDisponibles(vectorDatosDivididos[7].split(","));
-                            
-                            //al ser un arreglo de numeros se deben almacenar y luego castear
-                            String[] arregloNumerosAuxiliar3 =vectorDatosDivididos[8].split(",");
-                            int[] arregloDeNumeros3 = new int[arregloNumerosAuxiliar3.length];
-                            // Convertir cada "numero" a un número int y almacenar en el arreglo
-                            for (int i = 0; i < arregloNumerosAuxiliar3.length; i++) {
-                                arregloDeNumeros3[i] = Integer.parseInt(arregloNumerosAuxiliar3[i]);
-                            }
-                            //luego ese arreglo de numeros se almacena en la marca de los dias de clase que es un arreglo de numeros
-                            usuariosInstructores[numeroInstructores].setDiasDisponiblesMarca(arregloDeNumeros3);
-                            
-                            //al ser un arreglo de numeros se deben almacenar y luego castear
-                            String[] arregloNumerosAuxiliar4 =vectorDatosDivididos[9].split(",");
-                            int[] arregloDeNumeros4 = new int[arregloNumerosAuxiliar4.length];
-                            // Convertir cada "numero" a un número int y almacenar en el arreglo
-                            for (int i = 0; i < arregloNumerosAuxiliar4.length; i++) {
-                                arregloDeNumeros4[i] = Integer.parseInt(arregloNumerosAuxiliar4[i]);
-                            }
-                            //luego ese arreglo de numeros se almacena en la marca de los dias de clase que es un arreglo de numeros
-                            usuariosInstructores[numeroInstructores].setHorasDisponibles(arregloDeNumeros4);
-                            
-                            
-                            //se agrega tambien a la lista general de usuarios registrados
-                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosInstructores[numeroInstructores];
-                            numeroUsuariosRegistrados++;
-                            // se aumenta en la variable el numero de instructores actucal
-                            numeroInstructores++;
-                            
-                            
-                        }
-                        case 3 -> {
-                            // en caso de que el tipo de perfil sea 3 que corresponde a los Administradores
-                            
-                            // en la posicion del contador del numero de instructores se va agregando el instructor desde el archivo plano
-                            usuariosAdministradores[numeroAdministradores] = new Administrador();
-                            usuariosAdministradores[numeroAdministradores].setNombre(vectorDatosDivididos[0]);
-                            usuariosAdministradores[numeroAdministradores].setCedula(Integer.parseInt(vectorDatosDivididos[1]));
-                            usuariosAdministradores[numeroAdministradores].setCelular(Long.parseLong(vectorDatosDivididos[2]));
-                            usuariosAdministradores[numeroAdministradores].setTipoDePerfil(Integer.parseInt(vectorDatosDivididos[3]));
-                            usuariosAdministradores[numeroAdministradores].setDireccion(vectorDatosDivididos[4]);
-                            usuariosAdministradores[numeroAdministradores].setClaveAcceso(vectorDatosDivididos[5]);
-                            usuariosAdministradores[numeroAdministradores].setPreguntaSeguridad(vectorDatosDivididos[6]);
-                            usuariosAdministradores[numeroAdministradores].setSegundaClave(vectorDatosDivididos[7]);
-                            
-                            //se agrega tambien a la lista general de usuarios registrados
-                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAdministradores[numeroAdministradores];
-                            numeroUsuariosRegistrados++;
-                            // se aumenta en la variable el numero de Administradores actucal
-                            numeroAdministradores++;
-                            
-                            
-                        }
-                        default -> throw new AssertionError("no se encuentra el tipo en esta linea.");
-                    }              
-                }
-                
-                // Cerrar el scanner después de la lectura
-                leer.close();
-        }catch(FileNotFoundException e){
-            System.err.println("El archivo '" + archivoUsuariosRegistrados + "' no se encontró.");
-        }
-    }
+    
     
     
     public static String mostrarDatosUsuariosRegistrados() {
