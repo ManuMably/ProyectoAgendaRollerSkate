@@ -1,6 +1,15 @@
 
 package proyectoagendaroller;
 
+// imports de conexion a la base de datos
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -10,6 +19,40 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Perfiles {
+    // datos de conexion
+    //acceso ala base de datos segun el nombre que tiene la base de datos
+     public static final String ubicacion="jdbc:mysql://localhost/agendaroller";
+    //
+     //nombre del usuario
+    public static final String usuario = "root";
+
+    //contraseña del usuario aqui no tiene 
+    public static final String contraseña = "";
+
+    PreparedStatement ps;//esto es para poner hablar java con mysql sin esto no hay coneccion
+
+    ResultSet rs;// esto es el resultado de una consulta
+
+    public static com.mysql.jdbc.Connection getConnection(){//coneccion 
+
+        com.mysql.jdbc.Connection con=null;
+
+        try { //se utiliza para que no se presenten tanto errores
+
+            Class.forName("com.mysql.jdbc.Driver");//coneccion de la libreria con la base de datos
+
+            //esto ase la coneccion entre la base de datos y la aplicacion
+            con= (com.mysql.jdbc.Connection) DriverManager.getConnection(ubicacion,usuario,contraseña);
+
+        } catch (Exception e) {
+            System.out.println(e);//imprime los errores 
+
+        }
+
+        return con;//finaliza la ejecucion
+
+    }
+    
     // atributos correspondiestes para manipular los perfiles
     private static Usuario[] usuariosRegistrados = new Usuario[220];
     private static int numeroUsuariosRegistrados = 0;
@@ -98,6 +141,55 @@ public class Perfiles {
     // Setter para usuariosAdministradores
     public static void setUsuariosAdministradores(Administrador[] usuariosAdministradores) {
         Perfiles.usuariosAdministradores = usuariosAdministradores;
+    }
+    
+    public int cargarDatosRegistrados(){
+        com.mysql.jdbc.Connection con = null;
+
+        try{
+            con = getConnection();
+
+            //este codigo busca por medio de select * from y la cedula del usuario
+            ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =1");
+
+
+            rs= ps.executeQuery();//codigo para informacion de la base de datos
+            while (rs.next()) { 
+                usuariosInstructores[numeroInstructores] = new Instructor();
+                usuariosInstructores[numeroInstructores].setNombre(rs.getString("Nombre"));
+                usuariosInstructores[numeroInstructores].setCedula(Integer.parseInt(rs.getString("Documento")));
+                usuariosInstructores[numeroInstructores].setCelular(Long.parseLong(rs.getString("Celular")));
+                usuariosInstructores[numeroInstructores].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
+                usuariosInstructores[numeroInstructores].setDireccion(rs.getString("Direccion"));
+                usuariosInstructores[numeroInstructores].setClaveAcceso(rs.getString("Clave"));
+                usuariosInstructores[numeroInstructores].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
+                usuariosInstructores[numeroInstructores].setDiasDisponibles(rs.getString("DiasDisponibles").split(","));
+                
+                String[] diasDisponiblesMarca = rs.getString("DiasDisponiblesMarca").split(",");
+                int[] marcacion = new int[diasDisponiblesMarca.length];
+
+                for (int i = 0; i < diasDisponiblesMarca.length; i++) {
+                    marcacion[i] = Integer.parseInt(diasDisponiblesMarca[i]);
+                } 
+                usuariosInstructores[numeroInstructores].setDiasDisponiblesMarca(marcacion);
+                
+                String[] horasDisponibles = rs.getString("HorasDisponibles").split(",");
+                int[] horasDisp = new int[horasDisponibles.length];
+
+                for (int i = 0; i < horasDisponibles.length; i++) {
+                    horasDisp[i] = Integer.parseInt(horasDisponibles[i]);
+                } 
+                usuariosInstructores[numeroInstructores].setHorasDisponibles(horasDisp);
+                
+                
+            }
+            
+
+        }catch(Exception e){
+            System.err.println(e);
+        }
+    
+        return -1;
     }
     
     public static void cargarUsuariosRegistrados(){
