@@ -1,0 +1,5 @@
+ester;33255698;556554;1;dsfdfdf55;dfdf5;dfdf;dff;lunes,martes,miercoles,jueves,viernes,sabado,domingo;0,0,0,0,0,0,0;0,0,0,0,0,0,0;
+hector;66555896;3569852;1;kkj;25ff;par;basico;lunes,martes,miercoles,jueves,viernes,sabado,domingo;0,0,0,0,0,0,0;0,0,0,0,0,0,0;
+manu;11569;33215569;1;dsfdf556;clave;ma;bas;lunes,martes,miercoles,jueves,viernes,sabado,domingo;0,0,0,0,0,0,0;0,0,0,0,0,0,0;
+diestefano;55455;66588996;2;ddfdfd556;54df;df;lunes,martes,miercoles,jueves,viernes,sabado,domingo;0,0,0,0,0,0,0;0,0,0,0,0,0,0;
+lalito;558996;3325669;3;dfdfd58;54dfdf;pregunta;segunda;
