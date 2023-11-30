@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
 
+import java.sql.Types;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -17,6 +19,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+//import javax.lang.model.util.Types;
 
 public class Perfiles {
     // datos de conexion
@@ -264,9 +267,96 @@ public class Perfiles {
         return -1;
     }
     
+    public void guardarUsuariosRegistrados() {
+    Connection con = null;
+    PreparedStatement ps = null;
+
+    try {
+        con = getConnection();
+
+        // Aplicación de PreparedStatement para SELECT
+        String selectQuery = "SELECT * FROM usuarios WHERE Documento = ?";
+        PreparedStatement psSelect = con.prepareStatement(selectQuery);
+
+        // Aplicación de PreparedStatement para INSERT
+        String insertQuery = "INSERT INTO usuarios (Documento, Nombre, Celular, TipoPerfil, Direccion, Clave, PreguntaSeguridad, DiasDisponibles, DiasDisponiblesMarca, HorasDisponibles, Nivel, DiasClase, DiasMarca, HorasClase, SegundaClave) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ps = con.prepareStatement(insertQuery);
+
+        for (int i = 0; i < numeroUsuariosRegistrados; i++) {
+            Usuario usuario = usuariosRegistrados[i];
+
+            // Verificar si el usuario ya existe
+            psSelect.setString(1, Integer.toString(usuario.getCedula()));
+            ResultSet rs = psSelect.executeQuery();
+
+            if (rs.next()) {
+                // Usuario ya existe, omitir la inserción
+                System.out.println("Usuario con Documento " + usuario.getCedula() + " ya existe. Omitiendo la inserción.");
+            } else {
+                // Usuario no existe, proceder con la inserción
+                // Establecer los valores de los parámetros del PreparedStatement para la inserción
+                ps.setString(1, Integer.toString(usuario.getCedula()));
+                ps.setString(2, usuario.getNombre());
+                ps.setString(3, Long.toString(usuario.getCelular()));
+                ps.setString(4, Integer.toString(usuario.getTipoDePerfil()));
+                ps.setString(5, usuario.getDireccion());
+                ps.setString(6, usuario.getClaveAcceso());
+                ps.setString(7, usuario.getPreguntaSeguridad());
+
+                if (usuario instanceof Instructor) {
+                    Instructor instructor = (Instructor) usuario;
+                    ps.setString(8, String.join(",", instructor.getDiasDisponibles()));
+                    ps.setString(9, String.join(",", Arrays.stream(instructor.getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)));
+                    ps.setString(10, String.join(",", Arrays.stream(instructor.getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)));
+                } else if (usuario instanceof Alumno) {
+                    Alumno alumno = (Alumno) usuario;
+                    ps.setNull(8, Types.VARCHAR); // DíasDisponibles no aplicable a Alumno
+                    ps.setNull(9, Types.VARCHAR); // DíasDisponiblesMarca no aplicable a Alumno
+                    ps.setNull(10, Types.VARCHAR); // HorasDisponibles no aplicable a Alumno
+                    ps.setString(11, alumno.getNivel());
+                    ps.setString(12, String.join(",", alumno.getDiasClase()));
+                    ps.setString(13, String.join(",", Arrays.stream(alumno.getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)));
+                    ps.setString(14, String.join(",", Arrays.stream(alumno.getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)));
+                } else if (usuario instanceof Administrador) {
+                    Administrador administrador = (Administrador) usuario;
+                    ps.setNull(8, Types.VARCHAR); // DíasDisponibles no aplicable a Administrador
+                    ps.setNull(9, Types.VARCHAR); // DíasDisponiblesMarca no aplicable a Administrador
+                    ps.setNull(10, Types.VARCHAR); // HorasDisponibles no aplicable a Administrador
+                    ps.setNull(11, Types.INTEGER); // Nivel no aplicable a Administrador
+                    ps.setNull(12, Types.VARCHAR); // DíasClase no aplicable a Administrador
+                    ps.setNull(13, Types.VARCHAR); // DíasMarca no aplicable a Administrador
+                    ps.setNull(14, Types.VARCHAR); // HorasClase no aplicable a Administrador
+                    ps.setString(15, administrador.getSegundaClave());
+                }
+
+                // Ejecutar la consulta de inserción
+                int filasAfectadas = ps.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    System.out.println("Inserción exitosa para el usuario con Documento " + usuario.getCedula());
+                } else {
+                    System.out.println("La inserción no tuvo éxito para el usuario con Documento " + usuario.getCedula());
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        // Cerrar PreparedStatements y Connection en el bloque finally
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}     
     
-    
-    
+        
     public static String mostrarDatosUsuariosRegistrados() {
     StringBuilder mensaje = new StringBuilder(); // Usamos un StringBuilder para construir la cadena acumulativa
 
@@ -325,45 +415,7 @@ public class Perfiles {
     }
 }
     
-    public static void guardarUsuariosRegistrados() {
-    String archivoUsuariosRegistrados = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\ProyectoAgendaRoller\\src\\proyectoagendaroller\\ArchivosPlanos\\usuariosRegistrados.txt";
-
-    try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoUsuariosRegistrados))) {
-        for (int i = 0; i < numeroUsuariosRegistrados; i++) {
-            Usuario usuario = usuariosRegistrados[i];
-            String linea = usuario.getNombre() + ";"
-                    + usuario.getCedula() + ";"
-                    + usuario.getCelular() + ";"
-                    + usuario.getTipoDePerfil() + ";"
-                    + usuario.getDireccion() + ";"
-                    + usuario.getClaveAcceso() + ";"
-                    + usuario.getPreguntaSeguridad() + ";";
-
-            if (usuario instanceof Alumno) {
-                Alumno alumno = (Alumno) usuario;
-                linea += alumno.getNivel() + ";";
-                linea += String.join(",", alumno.getDiasClase()) + ";";
-                linea += String.join(",", Arrays.stream(alumno.getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-                linea += String.join(",", Arrays.stream(alumno.getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-            } else if (usuario instanceof Instructor) {
-                Instructor instructor = (Instructor) usuario;
-                linea += String.join(",", instructor.getDiasDisponibles()) + ";";
-                linea += String.join(",", Arrays.stream(instructor.getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-                linea += String.join(",", Arrays.stream(instructor.getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)) + ";";
-            } else if (usuario instanceof Administrador) {
-                Administrador administrador = (Administrador) usuario;
-                linea += administrador.getSegundaClave() + ";";
-            }
-
-            escritor.write(linea);
-            escritor.newLine();
-        }
-
-        System.out.println("Usuarios registrados guardados en el archivo.");
-    } catch (IOException e) {
-        System.err.println("Error al guardar usuarios registrados en el archivo: " + e.getMessage());
-    }
-}
+    
     
     public static void registrarUsuario(Usuario usuarioNuevo) {
     if (usuarioNuevo instanceof Alumno) {
