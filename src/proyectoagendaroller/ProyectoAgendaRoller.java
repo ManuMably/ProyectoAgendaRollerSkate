@@ -1,20 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package proyectoagendaroller;
 
-/**
- *
- * @author ROGER
- */
+import java.util.Scanner;
+
 public class ProyectoAgendaRoller {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Scanner leer = new Scanner(System.in);
+        
+        Perfiles perfilActual = new Perfiles();
+        
+        int respuesta = perfilActual.cargarDatosRegistrados();
+        
+        Administrador admin = new Administrador("Royer Pineda", 103666576, 5787836, 3, "ad45", "0000", "rosita");
+        Perfiles.registrarUsuario(admin);
+        
+        Perfiles.actualizarUsuariosRegistrados();
+        
+        perfilActual.guardarUsuariosRegistrados();
+        
+        System.out.println(Perfiles.mostrarDatosUsuariosRegistrados());
+        
+        
+        
+        
     }
     
 }
