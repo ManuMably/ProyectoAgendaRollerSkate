@@ -1,9 +1,16 @@
 
 package proyectoagendaroller;
 
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
+import java.time.LocalDate;
 import static proyectoagendaroller.Perfiles.getConnection;
 
 
@@ -40,9 +47,7 @@ public class GestorCitas {
 
         return con;//finaliza la ejecucion
 
-    }
-
-    
+    } 
 
     // atributos correspondiestes para manipular las citas
     private static final int numeroCitasMax = 150;
@@ -78,104 +83,16 @@ public class GestorCitas {
             rs= ps.executeQuery();//codigo para informacion de la base de datos
             while (rs.next()) { 
                 citasRegistradas[numeroCitasRegistradas] = new Cita();
-                citasRegistradas[numeroCitasRegistradas].setIdCita(rs.getString("IdCita"));
-                citasRegistradas[numeroCitasRegistradas].setCedula(Integer.parseInt(rs.getString("Documento")));
-                citasRegistradas[numeroCitasRegistradas].setCelular(Long.parseLong(rs.getString("Celular")));
-                citasRegistradas[numeroCitasRegistradas].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
-                citasRegistradas[numeroCitasRegistradas].setDireccion(rs.getString("Direccion"));
-                citasRegistradas[numeroCitasRegistradas].setClaveAcceso(rs.getString("Clave"));
-                citasRegistradas[numeroCitasRegistradas].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
-                citasRegistradas[numeroCitasRegistradas].setDiasDisponibles(rs.getString("DiasDisponibles").split(","));
-                
-                String[] diasDisponiblesMarca = rs.getString("DiasDisponiblesMarca").split(",");
-                int[] marcacion = new int[diasDisponiblesMarca.length];
-
-                for (int i = 0; i < diasDisponiblesMarca.length; i++) {
-                    marcacion[i] = Integer.parseInt(diasDisponiblesMarca[i]);
-                } 
-                usuariosInstructores[numeroInstructores].setDiasDisponiblesMarca(marcacion);
-                
-                String[] horasDisponibles = rs.getString("HorasDisponibles").split(",");
-                int[] horasDisp = new int[horasDisponibles.length];
-
-                for (int i = 0; i < horasDisponibles.length; i++) {
-                    horasDisp[i] = Integer.parseInt(horasDisponibles[i]);
-                } 
-                usuariosInstructores[numeroInstructores].setHorasDisponibles(horasDisp);
-                
-                //se agrega tambien a la lista general de usuarios registrados
-                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosInstructores[numeroInstructores];
-                            numeroUsuariosRegistrados++;
+                citasRegistradas[numeroCitasRegistradas].setIdCita(Integer.parseInt(rs.getString("IdCita")));
+                citasRegistradas[numeroCitasRegistradas].setCedulaInstructor(Integer.parseInt(rs.getString("CedulaInstructor")));
+                citasRegistradas[numeroCitasRegistradas].setCedulaAlumno(Integer.parseInt(rs.getString("CedulaAlumno")));
+                citasRegistradas[numeroCitasRegistradas].setFechaCita(rs.getDate("FechaCita").toLocalDate());
+                citasRegistradas[numeroCitasRegistradas].setHoraCita(rs.getInt("HoraCita"));   
+                citasRegistradas[numeroCitasRegistradas].setLugarCita(rs.getString("LugarCita"));                
+                citasRegistradas[numeroCitasRegistradas].setNivel(rs.getString("Nivel"));
+                citasRegistradas[numeroCitasRegistradas].setEstadoCita(rs.getString("EstadoCita"));
                 //se aumenta en la variable el numero de instructore actual
-                            numeroInstructores++;
-                
-                
-            }
-            //este codigo busca por medio de select * from y el tipo de perfil del usuario en este caso para los alumnos
-            ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =2");
-
-
-            rs= ps.executeQuery();//codigo para informacion de la base de datos
-            while (rs.next()) { 
-                usuariosAlumnos[numeroAlumnos] = new Alumno();
-                usuariosAlumnos[numeroAlumnos].setNombre(rs.getString("Nombre"));
-                usuariosAlumnos[numeroAlumnos].setCedula(Integer.parseInt(rs.getString("Documento")));
-                usuariosAlumnos[numeroAlumnos].setCelular(Long.parseLong(rs.getString("Celular")));
-                usuariosAlumnos[numeroAlumnos].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
-                usuariosAlumnos[numeroAlumnos].setDireccion(rs.getString("Direccion"));
-                usuariosAlumnos[numeroAlumnos].setClaveAcceso(rs.getString("Clave"));
-                usuariosAlumnos[numeroAlumnos].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
-                usuariosAlumnos[numeroAlumnos].setNivel(rs.getString("Nivel"));
-                usuariosAlumnos[numeroAlumnos].setDiasClase(rs.getString("DiasClase").split(","));
-                
-                String[] diasClaseMarca = rs.getString("DiasMarca").split(",");
-                int[] marcacion = new int[diasClaseMarca.length];
-
-                for (int i = 0; i < diasClaseMarca.length; i++) {
-                    marcacion[i] = Integer.parseInt(diasClaseMarca[i]);
-                } 
-                usuariosAlumnos[numeroAlumnos].setDiaClaseMarca(marcacion);
-                
-                String[] horaClase = rs.getString("HorasClase").split(",");
-                int[] horasClase = new int[horaClase.length];
-
-                for (int i = 0; i < horaClase.length; i++) {
-                    horasClase[i] = Integer.parseInt(horaClase[i]);
-                } 
-                usuariosAlumnos[numeroAlumnos].setHoraClase(horasClase);
-                
-                //se agrega tambien a la lista general de usuarios registrados
-                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAlumnos[numeroAlumnos];
-                            numeroUsuariosRegistrados++;
-                //se aumenta en la variable el numero de Alumnos actual
-                            numeroAlumnos++;
-                
-                
-            }
-            
-            //este codigo busca por medio de select * from y el tipo de perfil del usuario en este caso para los administradores
-            ps= con.prepareStatement("SELECT * FROM usuarios WHERE TipoPerfil =3");
-
-
-            rs= ps.executeQuery();//codigo para informacion de la base de datos
-            while (rs.next()) { 
-                usuariosAdministradores[numeroAdministradores] = new Administrador();
-                usuariosAdministradores[numeroAdministradores].setNombre(rs.getString("Nombre"));
-                usuariosAdministradores[numeroAdministradores].setCedula(Integer.parseInt(rs.getString("Documento")));
-                usuariosAdministradores[numeroAdministradores].setCelular(Long.parseLong(rs.getString("Celular")));
-                usuariosAdministradores[numeroAdministradores].setTipoDePerfil(Integer.parseInt(rs.getString("TipoPerfil")));
-                usuariosAdministradores[numeroAdministradores].setDireccion(rs.getString("Direccion"));
-                usuariosAdministradores[numeroAdministradores].setClaveAcceso(rs.getString("Clave"));
-                usuariosAdministradores[numeroAdministradores].setPreguntaSeguridad(rs.getString("PreguntaSeguridad"));
-                usuariosAdministradores[numeroAdministradores].setSegundaClave(rs.getString("SegundaClave"));
-
-                
-                //se agrega tambien a la lista general de usuarios registrados
-                            usuariosRegistrados[numeroUsuariosRegistrados] = usuariosAdministradores[numeroAdministradores];
-                            numeroUsuariosRegistrados++;
-                //se aumenta en la variable el numero de Alumnos actual
-                            numeroAdministradores++;
-                
+                numeroCitasRegistradas++;  
             }
             
                 return 1;
@@ -186,8 +103,69 @@ public class GestorCitas {
         return -1;
     }
     
-    
-    
-    
-    
+    public void guardarUsuariosRegistrados() {
+    Connection con = null;
+    PreparedStatement ps = null;
+
+    try {
+        con = getConnection();
+
+        // Aplicación de PreparedStatement para INSERT
+        String insertQuery = "INSERT INTO citas (IdCita, CedulaInstructor, CedulaAlumno, FechaCita, HoraCita, LugarCita, Nivel, EstadoCita) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        ps = con.prepareStatement(insertQuery);
+
+        for (int i = 0; i < numeroCitasRegistradas; i++) {
+            Cita cita = citasRegistradas[i];
+
+            // Verificar si la cita ya existe
+            ps.setString(1, Integer.toString(cita.getIdCita()));
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // la cita ya existe, omitir la inserción
+                System.out.println("Usuario con Documento " + cita.getIdCita() + " ya existe. Omitiendo la inserción.");
+            } else {
+                // Cita no existe, proceder con la inserción
+                // Establecer los valores de los parámetros del PreparedStatement para la inserción
+                ps.setInt(1, cita.getIdCita());
+                ps.setInt(2, cita.getCedulaInstructor());
+                ps.setInt(3,cita.getCedulaAlumno());
+                LocalDate fechaCita = cita.getFechaCita();
+                Date fechaSql = Date.valueOf(fechaCita);
+                ps.setDate(4, (java.sql.Date) fechaSql);
+                
+                
+                ps.setInt(5, cita.getHoraCita());
+                ps.setString(6, cita.getLugarCita());
+                ps.setString(7, usuario.getPreguntaSeguridad());
+                ps.setString(8, usuario.getPreguntaSeguridad());
+
+                
+
+                // Ejecutar la consulta de inserción
+                int filasAfectadas = ps.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    System.out.println("Inserción exitosa para el usuario con Documento " + usuario.getCedula());
+                } else {
+                    System.out.println("La inserción no tuvo éxito para el usuario con Documento " + usuario.getCedula());
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        // Cerrar PreparedStatements y Connection en el bloque finally
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}     
 }
