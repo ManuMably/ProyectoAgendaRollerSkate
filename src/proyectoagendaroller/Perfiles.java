@@ -19,6 +19,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 //import javax.lang.model.util.Types;
 
 public class Perfiles {
@@ -432,6 +433,19 @@ public class Perfiles {
 
         usuariosAlumnos = nuevoArreglo;
         numeroAlumnos = nuevoTamano;
+        // para que tambien lo registre a la lista general de usuarios registrados
+
+        int nuevoTamanoUR = numeroUsuariosRegistrados + 1;
+        Usuario[] nuevoArregloUR = new Usuario[nuevoTamanoUR];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArregloUR[0] = alumnoNuevo;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(usuariosRegistrados, 0, nuevoArregloUR, 1, numeroUsuariosRegistrados);
+
+        usuariosRegistrados = nuevoArregloUR;
+        numeroUsuariosRegistrados = nuevoTamanoUR;
 
     } else if (usuarioNuevo instanceof Instructor) {
         Instructor instructorNuevo = (Instructor) usuarioNuevo;
@@ -447,6 +461,19 @@ public class Perfiles {
 
         usuariosInstructores = nuevoArreglo;
         numeroInstructores = nuevoTamano;
+        // para que tambien lo registre a la lista general de usuarios registrados
+
+        int nuevoTamanoUR = numeroUsuariosRegistrados + 1;
+        Usuario[] nuevoArregloUR = new Usuario[nuevoTamanoUR];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArregloUR[0] = instructorNuevo;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(usuariosRegistrados, 0, nuevoArregloUR, 1, numeroUsuariosRegistrados);
+
+        usuariosRegistrados = nuevoArregloUR;
+        numeroUsuariosRegistrados = nuevoTamanoUR;
 
     } else if (usuarioNuevo instanceof Administrador) {
         Administrador administradorNuevo = (Administrador) usuarioNuevo;
@@ -462,13 +489,27 @@ public class Perfiles {
 
         usuariosAdministradores = nuevoArreglo;
         numeroAdministradores = nuevoTamano;
+        
+        // para que tambien lo registre a la lista general de usuarios registrados
+
+        int nuevoTamanoUR = numeroUsuariosRegistrados + 1;
+        Usuario[] nuevoArregloUR = new Usuario[nuevoTamanoUR];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArregloUR[0] = administradorNuevo;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(usuariosRegistrados, 0, nuevoArregloUR, 1, numeroUsuariosRegistrados);
+
+        usuariosRegistrados = nuevoArregloUR;
+        numeroUsuariosRegistrados = nuevoTamanoUR;
     }
 }
-    public static Usuario buscarPerfilCedula(Usuario busqueda){
+    public static Usuario buscarPerfilCedula(int busqueda){
         
         for (Usuario usuario : usuariosRegistrados) {
             int cedulaUsuario = usuario.getCedula();
-            int cedulaBusqueda = busqueda.getCedula();
+            int cedulaBusqueda = busqueda;
             
             if (cedulaBusqueda == cedulaUsuario) {
                 return usuario;   
@@ -535,8 +576,103 @@ public class Perfiles {
             }
             
         }
+        
+        //public void modificarUsuarioEnBaseDeDatos(int cedula, String nuevoNombre, long nuevoCelular, String nuevaDireccion) {
+        Connection con = null;
+        PreparedStatement psSelect = null;
+        PreparedStatement psUpdate = null;
+
+        try {
+            con = getConnection();
+
+            // Aplicación de PreparedStatement para SELECT
+            String selectQuery = "SELECT * FROM usuarios WHERE Documento = ?";
+            psSelect = con.prepareStatement(selectQuery);
+            psSelect.setString(1, Integer.toString(modificado.getCedula()));
+            ResultSet rs = psSelect.executeQuery();
+
+            if (rs.next()) {
+                // Usuario encontrado, proceder con la modificación
+                String updateQuery = "UPDATE usuarios SET Nombre = ?, Celular = ?, Direccion = ? WHERE Documento = ?";
+                psUpdate = con.prepareStatement(updateQuery);
+                psUpdate.setString(1, Integer.toString(modificado.getCedula()));
+                psUpdate.setString(2, modificado.getNombre());
+                psUpdate.setString(3, Long.toString(modificado.getCelular()));
+                psUpdate.setString(4, Integer.toString(modificado.getTipoDePerfil()));
+                psUpdate.setString(5, modificado.getDireccion());
+                psUpdate.setString(6, modificado.getClaveAcceso());
+                psUpdate.setString(7, modificado.getPreguntaSeguridad());
+                if (modificado instanceof Instructor) {
+                    Instructor instructor = (Instructor) modificado;
+                    psUpdate.setString(8, String.join(",", instructor.getDiasDisponibles()));
+                    psUpdate.setString(9, String.join(",", Arrays.stream(instructor.getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)));
+                    psUpdate.setString(10, String.join(",", Arrays.stream(instructor.getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)));
+                } else if (modificado instanceof Alumno) {
+                    Alumno alumno = (Alumno) modificado;
+                    psUpdate.setNull(8, Types.VARCHAR); // DíasDisponibles no aplicable a Alumno
+                    psUpdate.setNull(9, Types.VARCHAR); // DíasDisponiblesMarca no aplicable a Alumno
+                    psUpdate.setNull(10, Types.VARCHAR); // HorasDisponibles no aplicable a Alumno
+                    psUpdate.setString(11, alumno.getNivel());
+                    psUpdate.setString(12, String.join(",", alumno.getDiasClase()));
+                    psUpdate.setString(13, String.join(",", Arrays.stream(alumno.getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)));
+                    psUpdate.setString(14, String.join(",", Arrays.stream(alumno.getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)));
+                } else if (modificado instanceof Administrador) {
+                    Administrador administrador = (Administrador) modificado;
+                    psUpdate.setNull(8, Types.VARCHAR); // DíasDisponibles no aplicable a Administrador
+                    psUpdate.setNull(9, Types.VARCHAR); // DíasDisponiblesMarca no aplicable a Administrador
+                    psUpdate.setNull(10, Types.VARCHAR); // HorasDisponibles no aplicable a Administrador
+                    psUpdate.setNull(11, Types.INTEGER); // Nivel no aplicable a Administrador
+                    psUpdate.setNull(12, Types.VARCHAR); // DíasClase no aplicable a Administrador
+                    psUpdate.setNull(13, Types.VARCHAR); // DíasMarca no aplicable a Administrador
+                    psUpdate.setNull(14, Types.VARCHAR); // HorasClase no aplicable a Administrador
+                    psUpdate.setString(15, administrador.getSegundaClave());
+                }
+
+                // Ejecutar la consulta de actualización
+                int filasAfectadas = psUpdate.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    System.out.println("Modificación exitosa para el usuario con Documento " + modificado.getCedula());
+                } else {
+                    System.out.println("La modificación no tuvo éxito para el usuario con Documento " + modificado.getCedula());
+                }
+            } else {
+                // Usuario no encontrado
+                System.out.println("Usuario con Documento " + modificado.getCedula() + " no encontrado. No se realizó ninguna modificación.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar PreparedStatements y Connection en el bloque finally
+            try {
+                if (psSelect != null) {
+                    psSelect.close();
+                }
+                if (psUpdate != null) {
+                    psUpdate.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     
     }
+    
+    /*ordenarUsuariosRegistrados (se debe tener en cuenta todos los casos especiales.. nombre - dias ...)--- pendiente
+    este metodo recibira un numero que correspondera al tipo de ordenamiento que el sistema hara.
+    devolvera una confirmacion cuando el ordenamiento se haya jecutado para que otra accion muestre
+    los cambios realizados
+           1- nombre // listo falta prueba
+           2- cedula // listo falta prueba
+           3- solo alumnos nombre // listo falta prueba
+           3- solo alumnos nivel // listo falta prueba
+           3- solo alumnos horas clase // listo falta prueba
+           4- solo instructores nombre// listo falta prueba
+           4- solo instructores horas disponibles // listo falta prueba
+           5- solo administradores nombre// listo falta pruebas*/
     public static int ordenarUsuariosRegistrados(int opcion, int opcionaux){
         switch (opcion) {
             case 1:
@@ -587,7 +723,7 @@ public class Perfiles {
                         
                         return 1;
                     case 2:
-                          //Metodo ordenar los alumnos registrados por nombre uso del metodo burbuja de ordenamiento
+                          //Metodo ordenar los alumnos registrados por nivel uso del metodo burbuja de ordenamiento
                           for (int i = 0; i < numeroAlumnos - 1; i++) {
                                 for (int j = 0; j < numeroAlumnos - i - 1; j++) {
                                     // Comparar los nombres de los usuarios y swap si es necesario
@@ -602,27 +738,167 @@ public class Perfiles {
                         
                         return 1;
                     case 3:
+                        // Filtrar los alumnos no nulos y calcular la suma de horas de clase
+                        Alumno[] alumnosFiltrados = Arrays.copyOfRange(usuariosAlumnos, 0, numeroAlumnos);
+                        Arrays.sort(alumnosFiltrados, Comparator.comparingInt(Alumno::obtenerSumaHorasClase).reversed());
 
-                        break;
-                    case 4:
+                        // Actualizar la lista de alumnos ordenada
+                        for (int i = 0; i < numeroAlumnos; i++) {
+                        usuariosAlumnos[i] = alumnosFiltrados[i];
+        }
+                        
 
-                        break;
+                        return 1;
+                    default:
+                        return -1;
+                }
+            case 4:
+                switch (opcionaux) {
+                    case 1:
+                        //Metodo ordenar los Instructores registrados por nombre uso del metodo burbuja de ordenamiento
+                        for (int i = 0; i < numeroInstructores - 1; i++) {
+                            for (int j = 0; j < numeroInstructores - i - 1; j++) {
+                                // Comparar los nombres de los usuarios y swap si es necesario
+                                if (usuariosInstructores[j].getNombre().compareTo(usuariosInstructores[j + 1].getNombre()) > 0) {
+                                // Intercambiar usuariosInstructores[j] y usuariosInstructores[j + 1]
+                                Instructor temp = usuariosInstructores[j];
+                                usuariosInstructores[j] = usuariosInstructores[j + 1];
+                                usuariosInstructores[j + 1] = temp;
+                                }
+                            }
+                        }
+                        
+                        return 1;
+                    case 2:
+                        // Filtrar los instructores no nulos y calcular la suma de horas de clase
+                        Instructor[] instructoresFiltrados = Arrays.copyOfRange(usuariosInstructores, 0, numeroInstructores);
+                        Arrays.sort(instructoresFiltrados, Comparator.comparingInt(Instructor::obtenerSumaHorasDisponibles).reversed());
+
+                        // Actualizar la lista de alumnos ordenada
+                        for (int i = 0; i < numeroInstructores; i++) {
+                        usuariosInstructores[i] = instructoresFiltrados[i];
+                        }
+                        
+
+                        return 1;
+                        
                     default:
                         return -1;
                 }
                 
-                break;
-            case 4:
-                
-                break;
             case 5:
-                
-                break;
+                //Metodo ordenar los Administradores registrados por nombre uso del metodo burbuja de ordenamiento
+                        for (int i = 0; i < numeroAdministradores - 1; i++) {
+                            for (int j = 0; j < numeroAdministradores - i - 1; j++) {
+                                // Comparar los nombres de los usuarios y swap si es necesario
+                                if (usuariosAdministradores[j].getNombre().compareTo(usuariosAdministradores[j + 1].getNombre()) > 0) {
+                                // Intercambiar usuariosAdministradores[j] y usuariosAdministradores[j + 1]
+                                Administrador temp = usuariosAdministradores[j];
+                                usuariosAdministradores[j] = usuariosAdministradores[j + 1];
+                                usuariosAdministradores[j + 1] = temp;
+                                }
+                            }
+                        }
+                        
+                        return 1;
             default:
                 return -1;
         }
+    }
     
-        return -1;
+    public int borrarUsuario(int cedula){    
+    
+    // Buscar el usuario en los arreglos
+    Usuario usuarioABorrar = buscarPerfilCedula(cedula);
+
+    // Verificar si el usuario fue encontrado
+    if (usuarioABorrar.getTipoDePerfil() != 4) {
+        // Usuario encontrado, proceder con el borrado de los arreglos
+        // primero borrar de la lista general
+        for (int i = 0; i < numeroUsuariosRegistrados; i++) {
+                    if (usuariosRegistrados[i].getCedula() == usuarioABorrar.getCedula()) {
+                        // Encontrar la posición del usuario y borrarlo del arreglo
+                        System.arraycopy(usuariosRegistrados, i + 1, usuariosRegistrados, i, numeroUsuariosRegistrados - i - 1);
+                        usuariosRegistrados[numeroUsuariosRegistrados - 1] = null;
+                        numeroUsuariosRegistrados--;
+                    }
+                }
+        if (usuarioABorrar instanceof Instructor) {
+                for (int i = 0; i < numeroInstructores; i++) {
+                    if (usuariosInstructores[i].getCedula() == usuarioABorrar.getCedula()) {
+                        // Encontrar la posición del usuario y borrarlo del arreglo
+                        System.arraycopy(usuariosInstructores, i + 1, usuariosInstructores, i, numeroInstructores - i - 1);
+                        usuariosInstructores[numeroInstructores - 1] = null;
+                        numeroInstructores--;
+                        
+                    }
+                }
+                
+        } else if (usuarioABorrar instanceof Alumno) {
+            for (int i = 0; i < numeroAlumnos; i++) {
+                    if (usuariosAlumnos[i].getCedula() == usuarioABorrar.getCedula()) {
+                        // Encontrar la posición del usuario y borrarlo del arreglo
+                        System.arraycopy(usuariosAlumnos, i + 1, usuariosAlumnos, i, numeroAlumnos - i - 1);
+                        usuariosAlumnos[numeroAlumnos - 1] = null;
+                        numeroAlumnos--;
+                        
+                    }
+                }
+                
+        } else if (usuarioABorrar instanceof Administrador) {
+            for (int i = 0; i < numeroAdministradores; i++) {
+                    if (usuariosAdministradores[i].getCedula() == usuarioABorrar.getCedula()) {
+                        // Encontrar la posición del usuario y borrarlo del arreglo
+                        System.arraycopy(usuariosAdministradores, i + 1, usuariosAdministradores, i, numeroAdministradores - i - 1);
+                        usuariosAdministradores[numeroAdministradores - 1] = null;
+                        numeroAdministradores--;
+                        
+                    }
+                }
+        }
+        Connection con = null;
+        PreparedStatement psDelete = null;
+
+        try {
+            con = getConnection();
+
+            // Aplicación de PreparedStatement para DELETE
+            String deleteQuery = "DELETE FROM usuarios WHERE Documento = ?";
+            psDelete = con.prepareStatement(deleteQuery);
+            psDelete.setString(1, Integer.toString(cedula));
+
+            // Ejecutar la consulta de eliminación
+            int filasAfectadas = psDelete.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Borrado exitoso para el usuario con Documento " + cedula);
+            } else {
+                System.out.println("El borrado no tuvo éxito para el usuario con Documento " + cedula + ". Usuario no encontrado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar PreparedStatement y Connection en el bloque finally
+            try {
+                if (psDelete != null) {
+                    psDelete.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 1;
+    } else {
+        // Usuario no encontrado en los arreglos, imprimir un mensaje
+        System.out.println("Usuario con Documento " + cedula + " no encontrado en los arreglos. No se realizó ninguna acción.");
+    }
+    
+    
+    return -1;
+        
     }
     
 }
