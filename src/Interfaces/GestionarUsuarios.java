@@ -5,19 +5,34 @@
 package Interfaces;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import proyectoagendaroller.Perfiles;
+import proyectoagendaroller.Usuario;
+import proyectoagendaroller.*;
 
 /**
  *
  * @author zTMike
  */
 public class GestionarUsuarios extends javax.swing.JFrame {
+    Perfiles perfilesu = new Perfiles();
+    Usuario usuariou = new Usuario();
 
     /**
      * Creates new form ConsultarCitas
      */
     public GestionarUsuarios() {
-        initComponents();
+        int bandera = perfilesu.cargarDatosRegistrados();
+        if (bandera==-1) {
+            JOptionPane.showMessageDialog(null, "No se pudo cargar informacion de la base de datos\nComunicate con un administrador");
+            
+        }else{
+            initComponents();
+            documentotext.requestFocus();
+
     }
+        }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,19 +46,79 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         Volver = new javax.swing.JLabel();
         Cerrar = new javax.swing.JLabel();
         Minimizar = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        BtnIniciarSesion = new javax.swing.JButton();
+        documentotext = new javax.swing.JTextField();
+        Btnconsultar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        LabelContra9 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         TituloInicioSesion = new javax.swing.JLabel();
-        LabelContra10 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        LabelContra11 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        LabelContra12 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        Fondo = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        Nombrep = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        Cedulap = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        Tipoperfilp = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        Direccionp = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        Clavep = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        PreguntaSeguridadP = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        DocumentoP = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        Fondo2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        Nivelp = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        ChkLunesAlumnos = new javax.swing.JCheckBox();
+        ChkMartesAlumnos = new javax.swing.JCheckBox();
+        ChkMiercolesAlumnos = new javax.swing.JCheckBox();
+        ChkJuevesAlumnos = new javax.swing.JCheckBox();
+        ChkViernesAlumnos = new javax.swing.JCheckBox();
+        ChkSabadoAlumnos = new javax.swing.JCheckBox();
+        ChkDomingoAlumnos = new javax.swing.JCheckBox();
+        Fondo4 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        HorasP = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        Fondo7 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        ChkLunesInstructor = new javax.swing.JCheckBox();
+        ChkMartesInstructor = new javax.swing.JCheckBox();
+        ChkmiercolesInstructor = new javax.swing.JCheckBox();
+        ChkJuevesInstructor = new javax.swing.JCheckBox();
+        ChkViernesInstructor = new javax.swing.JCheckBox();
+        ChkSabadoInstructor = new javax.swing.JCheckBox();
+        ChkDomingoInstructor = new javax.swing.JCheckBox();
+        SD = new javax.swing.JSlider();
+        SL = new javax.swing.JSlider();
+        SMier = new javax.swing.JSlider();
+        SJ = new javax.swing.JSlider();
+        SV = new javax.swing.JSlider();
+        SM = new javax.swing.JSlider();
+        SS = new javax.swing.JSlider();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        Fondo3 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        Fondo1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        SegundaP = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        Fondo5 = new javax.swing.JLabel();
+        TituloInicioSesion1 = new javax.swing.JLabel();
+        MostrarEnTabla = new javax.swing.JButton();
+        Fondo6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -100,101 +175,467 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         });
         getContentPane().add(Minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1520, 0, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        documentotext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                documentotextActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 230, 30));
+        documentotext.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                documentotextKeyPressed(evt);
+            }
+        });
+        getContentPane().add(documentotext, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 230, 30));
 
-        BtnIniciarSesion.setBackground(new java.awt.Color(153, 153, 255));
-        BtnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BtnIniciarSesion.setText("Consultar");
-        BtnIniciarSesion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        BtnIniciarSesion.setBorderPainted(false);
-        BtnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+        Btnconsultar.setBackground(new java.awt.Color(153, 153, 255));
+        Btnconsultar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Btnconsultar.setText("Consultar");
+        Btnconsultar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Btnconsultar.setBorderPainted(false);
+        Btnconsultar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnIniciarSesionMouseClicked(evt);
+                BtnconsultarMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BtnIniciarSesionMouseEntered(evt);
+                BtnconsultarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                BtnIniciarSesionMouseExited(evt);
+                BtnconsultarMouseExited(evt);
             }
         });
-        BtnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+        Btnconsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIniciarSesionActionPerformed(evt);
+                BtnconsultarActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 200, 40));
+        getContentPane().add(Btnconsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, 200, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 196, 235));
-        jLabel3.setText("Documento :");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
-
-        LabelContra9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelContra9.setForeground(new java.awt.Color(20, 44, 44));
-        LabelContra9.setText("Nombre :");
-        getContentPane().add(LabelContra9, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, 110, 30));
-
-        jTextField2.setForeground(new java.awt.Color(20, 44, 44));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 30));
+        jLabel3.setText("Documento:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, -1, -1));
 
         TituloInicioSesion.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
         TituloInicioSesion.setForeground(new java.awt.Color(203, 197, 232));
-        TituloInicioSesion.setText("Perfil");
-        getContentPane().add(TituloInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 170, 110));
+        TituloInicioSesion.setText("Perfiles");
+        getContentPane().add(TituloInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 240, 110));
 
-        LabelContra10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelContra10.setForeground(new java.awt.Color(20, 44, 44));
-        LabelContra10.setText("Contraseña :");
-        getContentPane().add(LabelContra10, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 150, 30));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField3.setForeground(new java.awt.Color(20, 44, 44));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        Nombrep.setEditable(false);
+        Nombrep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                NombrepActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 250, 160, 30));
+        jPanel3.add(Nombrep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 240, 30));
 
-        LabelContra11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelContra11.setForeground(new java.awt.Color(20, 44, 44));
-        LabelContra11.setText("Direccion :");
-        getContentPane().add(LabelContra11, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 130, 30));
+        jLabel2.setText("Nombre:");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
-        jTextField4.setForeground(new java.awt.Color(20, 44, 44));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        Cedulap.setEditable(false);
+        Cedulap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                CedulapActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 350, 160, 30));
+        jPanel3.add(Cedulap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 240, 30));
 
-        LabelContra12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelContra12.setForeground(new java.awt.Color(20, 44, 44));
-        LabelContra12.setText("Tipo de usuario :");
-        getContentPane().add(LabelContra12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, 200, 30));
+        jLabel4.setText("Celular");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
-        jTextField5.setForeground(new java.awt.Color(20, 44, 44));
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        Tipoperfilp.setEditable(false);
+        Tipoperfilp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                TipoperfilpActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 430, 160, 30));
+        jPanel3.add(Tipoperfilp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 240, 30));
 
-        Fondo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 900));
+        jLabel5.setText("Tipo de perfil");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+
+        Direccionp.setEditable(false);
+        Direccionp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DireccionpActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Direccionp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 240, 30));
+
+        jLabel6.setText("Direccion");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, -1));
+
+        Clavep.setEditable(false);
+        Clavep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClavepActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Clavep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 240, 30));
+
+        jLabel7.setText("Clave");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
+
+        PreguntaSeguridadP.setEditable(false);
+        PreguntaSeguridadP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PreguntaSeguridadPActionPerformed(evt);
+            }
+        });
+        jPanel3.add(PreguntaSeguridadP, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 240, 30));
+
+        jLabel8.setText("Preguta de seguridad");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
+
+        DocumentoP.setEditable(false);
+        DocumentoP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DocumentoPActionPerformed(evt);
+            }
+        });
+        jPanel3.add(DocumentoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 240, 30));
+
+        jLabel9.setText("Documento:");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
+
+        Fondo2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel3.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-540, 0, -1, 810));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 430, 470));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Nivelp.setEditable(false);
+        Nivelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NivelpActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Nivelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 80, 30));
+
+        jLabel14.setText("Nivel");
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, 10));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ChkLunesAlumnos.setText("Lunes");
+        ChkLunesAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkLunesAlumnosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ChkLunesAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 5, -1, -1));
+
+        ChkMartesAlumnos.setText("Martes");
+        jPanel2.add(ChkMartesAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 5, -1, -1));
+
+        ChkMiercolesAlumnos.setText("Miercoles");
+        ChkMiercolesAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkMiercolesAlumnosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ChkMiercolesAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 5, -1, -1));
+
+        ChkJuevesAlumnos.setText("Jueves");
+        ChkJuevesAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkJuevesAlumnosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ChkJuevesAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 5, -1, -1));
+
+        ChkViernesAlumnos.setText("Viernes");
+        jPanel2.add(ChkViernesAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 30, -1, -1));
+
+        ChkSabadoAlumnos.setText("Sabado");
+        jPanel2.add(ChkSabadoAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 30, -1, -1));
+
+        ChkDomingoAlumnos.setText("Domingo");
+        jPanel2.add(ChkDomingoAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 30, -1, -1));
+
+        Fondo4.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel2.add(Fondo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1220, -350, -1, 810));
+
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 310, 60));
+
+        jLabel17.setText("Dias de clase para alumnos");
+        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+
+        jLabel10.setText("Alumnos");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, -1));
+
+        HorasP.setEditable(false);
+        HorasP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HorasPActionPerformed(evt);
+            }
+        });
+        jPanel4.add(HorasP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 190, 30));
+
+        jLabel11.setText("Horas Clase");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+
+        Fondo7.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel4.add(Fondo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-860, -250, -1, 810));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 60, 310, 190));
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setText("Dias disponibles para instructores");
+        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ChkLunesInstructor.setText("Lunes");
+        ChkLunesInstructor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkLunesInstructorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ChkLunesInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, -1));
+
+        ChkMartesInstructor.setText("Martes");
+        ChkMartesInstructor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkMartesInstructorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ChkMartesInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
+
+        ChkmiercolesInstructor.setText("Miercoles");
+        jPanel1.add(ChkmiercolesInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
+
+        ChkJuevesInstructor.setText("Jueves");
+        ChkJuevesInstructor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkJuevesInstructorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ChkJuevesInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, -1, -1));
+
+        ChkViernesInstructor.setText("Viernes");
+        jPanel1.add(ChkViernesInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, -1, -1));
+
+        ChkSabadoInstructor.setText("Sabado");
+        jPanel1.add(ChkSabadoInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
+
+        ChkDomingoInstructor.setText("Domingo");
+        jPanel1.add(ChkDomingoInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, -1));
+
+        SD.setMaximum(8);
+        SD.setPaintLabels(true);
+        SD.setPaintTicks(true);
+        SD.setValue(0);
+        SD.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SD.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SDStateChanged(evt);
+            }
+        });
+        jPanel1.add(SD, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+
+        SL.setMaximum(8);
+        SL.setPaintLabels(true);
+        SL.setPaintTicks(true);
+        SL.setValue(0);
+        SL.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SL.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SLStateChanged(evt);
+            }
+        });
+        jPanel1.add(SL, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        SMier.setMaximum(8);
+        SMier.setPaintLabels(true);
+        SMier.setPaintTicks(true);
+        SMier.setValue(0);
+        SMier.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SMier.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SMierStateChanged(evt);
+            }
+        });
+        jPanel1.add(SMier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+
+        SJ.setMaximum(8);
+        SJ.setPaintLabels(true);
+        SJ.setPaintTicks(true);
+        SJ.setValue(0);
+        SJ.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SJ.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SJStateChanged(evt);
+            }
+        });
+        jPanel1.add(SJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+
+        SV.setMaximum(8);
+        SV.setPaintLabels(true);
+        SV.setPaintTicks(true);
+        SV.setValue(0);
+        SV.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SV.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SVStateChanged(evt);
+            }
+        });
+        jPanel1.add(SV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+
+        SM.setMaximum(8);
+        SM.setPaintLabels(true);
+        SM.setPaintTicks(true);
+        SM.setValue(0);
+        SM.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SM.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SMStateChanged(evt);
+            }
+        });
+        jPanel1.add(SM, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+
+        SS.setMaximum(8);
+        SS.setPaintLabels(true);
+        SS.setPaintTicks(true);
+        SS.setValue(0);
+        SS.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        SS.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SSStateChanged(evt);
+            }
+        });
+        jPanel1.add(SS, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+
+        jLabel16.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel16PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 40, 20));
+
+        jLabel18.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel18PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 40, 20));
+
+        jLabel19.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel19PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 40, 20));
+
+        jLabel20.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel20PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 40, 20));
+
+        jLabel21.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel21PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 40, 20));
+
+        jLabel22.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel22PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 40, 20));
+
+        jLabel23.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel23PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 40, 20));
+
+        jLabel24.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jLabel24PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 40, 20));
+
+        Fondo3.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel1.add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-690, -70, -1, -1));
+
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 300, 330));
+
+        jLabel13.setText("Instructores");
+        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, -1, -1));
+
+        Fondo1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel5.add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1220, -440, -1, 870));
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 310, 300, 420));
+
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Segunda Clave");
+        jPanel7.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        SegundaP.setEditable(false);
+        SegundaP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SegundaPActionPerformed(evt);
+            }
+        });
+        jPanel7.add(SegundaP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 150, 30));
+
+        jLabel15.setText("Administrador");
+        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+
+        Fondo5.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel7.add(Fondo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1160, -680, -1, 810));
+
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 230, 280, 110));
+
+        TituloInicioSesion1.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        TituloInicioSesion1.setForeground(new java.awt.Color(203, 197, 232));
+        TituloInicioSesion1.setText("Gestionar");
+        getContentPane().add(TituloInicioSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 320, 110));
+
+        MostrarEnTabla.setBackground(new java.awt.Color(153, 153, 255));
+        MostrarEnTabla.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        MostrarEnTabla.setText("Consultar");
+        MostrarEnTabla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        MostrarEnTabla.setBorderPainted(false);
+        MostrarEnTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MostrarEnTablaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MostrarEnTablaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MostrarEnTablaMouseExited(evt);
+            }
+        });
+        MostrarEnTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarEnTablaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(MostrarEnTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 720, 200, 40));
+
+        Fondo6.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Fondo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        getContentPane().add(Fondo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -240,47 +681,355 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MinimizarMouseExited
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void documentotextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentotextActionPerformed
+       
+    }//GEN-LAST:event_documentotextActionPerformed
+
+    private void BtnconsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnconsultarMouseClicked
+         
+          String validacion = documentotext.getText();
+         System.out.println();
+         if (validacion.isEmpty()|| validacion.trim().isEmpty()) {
+             JOptionPane.showMessageDialog(null, "Ingrese un documento valido");
+             
+             documentotext.setText("");
+             documentotext.requestFocus();
+           
+        }else{
+             int documento = Integer.parseInt(validacion);
+             
+             try {
+                 usuariou=Perfiles.buscarPerfilCedula(documento);
+             } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Usuario no exite");
+                 documentotext.setText("");
+                    documentotext.requestFocus();
+             }
+             
+             
+           
+             switch (usuariou.getTipoDePerfil()) {
+                case 1:
+                      if (usuariou instanceof Instructor) {
+                    Instructor docente = (Instructor) usuariou;
+                    DocumentoP.setText(String.valueOf(docente.getCedula()));
+                    Nombrep.setText(String.valueOf(docente.getNombre()));
+                    Cedulap.setText(String.valueOf(docente.getCelular()));
+                    Tipoperfilp.setText(String.valueOf(docente.getTipoDePerfil()));
+                    Direccionp.setText(String.valueOf(docente.getDireccion()));
+                    Clavep.setText(String.valueOf(docente.getClaveAcceso()));
+                    PreguntaSeguridadP.setText(String.valueOf(docente.getPreguntaSeguridad()));
+                    int [] dias = new int [7];
+                    int [] horas = new int [7];
+                   
+                    dias=docente.getDiasDisponiblesMarca();
+                    
+                          for (int i = 0; i < 7; i++) {
+                              
+                              System.out.println(dias[i]);
+                              if (dias[i]==1) {
+                                      switch (i) {
+                                      case 0:
+                                          ChkLunesInstructor.setSelected(true);
+                                          break;
+                                      case 1:
+                                          ChkMartesInstructor.setSelected(true);
+                                          break;
+                                      case 2:
+                                          ChkmiercolesInstructor.setSelected(true);
+                                          break;
+                                      case 3:
+                                          ChkJuevesInstructor.setSelected(true);
+                                          break;
+                                      case 4:
+                                          ChkViernesInstructor.setSelected(true);
+                                          break;
+                                       case 5:
+                                          ChkSabadoInstructor.setSelected(true);
+                                          break;
+                                       case 6:
+                                          ChkDomingoInstructor.setSelected(true);
+                                          break;
+                                      
+                                  }
+                                  }
+                          }
+                          
+                          
+                          horas=docente.getHorasDisponibles();
+                    
+                          for (int i = 0; i < 7; i++) {
+                              
+                              System.out.println(dias[i]);
+                              if (horas[i]!=0) {
+                                      switch (i) {
+                                      case 0:
+                                         SL.setValue(horas[i]);
+                                          break;
+                                      case 1:
+                                           SM.setValue(horas[i]);
+                                          break;
+                                      case 2:
+                                           SMier.setValue(horas[i]);
+                                          break;
+                                      case 3:
+                                           SJ.setValue(horas[i]);
+                                          break;
+                                      case 4:
+                                           SV.setValue(horas[i]);
+                                          break;
+                                       case 5:
+                                           SS.setValue(horas[i]);
+                                          break;
+                                       case 6:
+                                           SD.setValue(horas[i]);
+                                          break;
+                                      
+                                  }
+                                  }
+                          }
+                          
+                    
+                    }
+                    
+                    break;
+                case 2:
+                    if (usuariou instanceof Alumno) {
+                    Alumno alum = (Alumno) usuariou;
+                    DocumentoP.setText(String.valueOf(alum.getCedula()));
+                    Nombrep.setText(String.valueOf(alum.getNombre()));
+                    Cedulap.setText(String.valueOf(alum.getCelular()));
+                    Tipoperfilp.setText(String.valueOf(alum.getTipoDePerfil()));
+                    Direccionp.setText(String.valueOf(alum.getDireccion()));
+                    Clavep.setText(String.valueOf(alum.getClaveAcceso()));
+                    PreguntaSeguridadP.setText(String.valueOf(alum.getPreguntaSeguridad()));
+                    Nivelp.setText(String.valueOf(alum.getNivel()));
+                    HorasP.setText(String.valueOf(alum.obtenerSumaHorasClase()));
+                    
+                       int [] dias = new int [7];
+                   
+                    dias=alum.getDiaClaseMarca();
+                    
+                          for (int i = 0; i < 7; i++) {
+                              
+                              System.out.println(dias[i]);
+                              if (dias[i]==1) {
+                                      switch (i) {
+                                      case 0:
+                                          ChkLunesAlumnos.setSelected(true);
+                                          break;
+                                      case 1:
+                                          ChkMartesAlumnos.setSelected(true);
+                                          break;
+                                      case 2:
+                                          ChkMiercolesAlumnos.setSelected(true);
+                                          break;
+                                      case 3:
+                                          ChkJuevesAlumnos.setSelected(true);
+                                          break;
+                                      case 4:
+                                          ChkViernesAlumnos.setSelected(true);
+                                          break;
+                                       case 5:
+                                          ChkSabadoAlumnos.setSelected(true);
+                                          break;
+                                       case 6:
+                                          ChkDomingoAlumnos.setSelected(true);
+                                          break;
+                                      
+                                  }
+                                  }
+                          }}
+                    
+                    break;
+                case 3:
+                    if (usuariou instanceof Administrador) {
+                    Administrador admin = (Administrador) usuariou;
+                    DocumentoP.setText(String.valueOf(admin.getCedula()));
+                    Nombrep.setText(String.valueOf(admin.getNombre()));
+                    Cedulap.setText(String.valueOf(admin.getCelular()));
+                    Tipoperfilp.setText(String.valueOf(admin.getTipoDePerfil()));
+                    Direccionp.setText(String.valueOf(admin.getDireccion()));
+                    Clavep.setText(String.valueOf(admin.getClaveAcceso()));
+                    PreguntaSeguridadP.setText(String.valueOf(admin.getPreguntaSeguridad()));
+                    SegundaP.setText(String.valueOf(admin.getSegundaClave()));
+                    }
+                    
+                    
+                   
+                    
+                    break;
+                 default:
+                     
+             }
+
+         }
+                        
+         
+        
+        
+        
+    }//GEN-LAST:event_BtnconsultarMouseClicked
+
+    private void BtnconsultarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnconsultarMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        Btnconsultar.setBackground(new java.awt.Color(103, 87, 164));
+        Btnconsultar.setForeground(new java.awt.Color(255, 255, 255));
 
-    private void BtnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnIniciarSesionMouseClicked
-        dispose();
-        JFrame menu = new Menu();
-        menu.setVisible(true);
-    }//GEN-LAST:event_BtnIniciarSesionMouseClicked
+    }//GEN-LAST:event_BtnconsultarMouseEntered
 
-    private void BtnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnIniciarSesionMouseEntered
+    private void BtnconsultarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnconsultarMouseExited
+        Btnconsultar.setBackground(new java.awt.Color(153, 153, 255));
+        Btnconsultar.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_BtnconsultarMouseExited
+
+    private void BtnconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnconsultarActionPerformed
+       
+    }//GEN-LAST:event_BtnconsultarActionPerformed
+
+    private void documentotextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_documentotextKeyPressed
+          // TODO add your handling code here:
+    }//GEN-LAST:event_documentotextKeyPressed
+
+    private void SegundaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SegundaPActionPerformed
         // TODO add your handling code here:
-        BtnIniciarSesion.setBackground(new java.awt.Color(103, 87, 164));
-        BtnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_SegundaPActionPerformed
 
-    }//GEN-LAST:event_BtnIniciarSesionMouseEntered
-
-    private void BtnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnIniciarSesionMouseExited
-        BtnIniciarSesion.setBackground(new java.awt.Color(153, 153, 255));
-        BtnIniciarSesion.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_BtnIniciarSesionMouseExited
-
-    private void BtnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIniciarSesionActionPerformed
-
-    }//GEN-LAST:event_BtnIniciarSesionActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void NombrepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombrepActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_NombrepActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void CedulapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CedulapActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_CedulapActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void TipoperfilpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoperfilpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_TipoperfilpActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void DireccionpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DireccionpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_DireccionpActionPerformed
+
+    private void ClavepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClavepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClavepActionPerformed
+
+    private void PreguntaSeguridadPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreguntaSeguridadPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PreguntaSeguridadPActionPerformed
+
+    private void DocumentoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentoPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DocumentoPActionPerformed
+
+    private void HorasPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorasPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HorasPActionPerformed
+
+    private void NivelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NivelpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NivelpActionPerformed
+
+    private void ChkLunesInstructorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkLunesInstructorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkLunesInstructorActionPerformed
+
+    private void ChkJuevesInstructorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkJuevesInstructorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkJuevesInstructorActionPerformed
+
+    private void ChkLunesAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkLunesAlumnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkLunesAlumnosActionPerformed
+
+    private void ChkJuevesAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkJuevesAlumnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkJuevesAlumnosActionPerformed
+
+    private void ChkMiercolesAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkMiercolesAlumnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkMiercolesAlumnosActionPerformed
+
+    private void ChkMartesInstructorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkMartesInstructorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkMartesInstructorActionPerformed
+
+    private void jLabel16PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel16PropertyChange
+      
+    }//GEN-LAST:event_jLabel16PropertyChange
+
+    private void SLStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SLStateChanged
+         jLabel18.setText(String.valueOf(SL.getValue()));
+    }//GEN-LAST:event_SLStateChanged
+
+    private void jLabel18PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel18PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel18PropertyChange
+
+    private void jLabel19PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel19PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel19PropertyChange
+
+    private void jLabel20PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel20PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel20PropertyChange
+
+    private void jLabel21PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel21PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel21PropertyChange
+
+    private void jLabel22PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel22PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel22PropertyChange
+
+    private void jLabel23PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel23PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel23PropertyChange
+
+    private void jLabel24PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel24PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel24PropertyChange
+
+    private void SMStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SMStateChanged
+    jLabel19.setText(String.valueOf(SM.getValue()));
+    }//GEN-LAST:event_SMStateChanged
+
+    private void SMierStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SMierStateChanged
+jLabel21.setText(String.valueOf(SMier.getValue()));        // TODO add your handling code here:
+    }//GEN-LAST:event_SMierStateChanged
+
+    private void SJStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SJStateChanged
+jLabel22.setText(String.valueOf(SJ.getValue()));        // TODO add your handling code here:
+    }//GEN-LAST:event_SJStateChanged
+
+    private void SVStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SVStateChanged
+jLabel23.setText(String.valueOf(SV.getValue()));        // TODO add your handling code here:
+    }//GEN-LAST:event_SVStateChanged
+
+    private void SSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SSStateChanged
+jLabel24.setText(String.valueOf(SS.getValue()));        // TODO add your handling code here:
+    }//GEN-LAST:event_SSStateChanged
+
+    private void SDStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SDStateChanged
+jLabel16.setText(String.valueOf(SD.getValue()));        // TODO add your handling code here:
+    }//GEN-LAST:event_SDStateChanged
+
+    private void MostrarEnTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarEnTablaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MostrarEnTablaMouseClicked
+
+    private void MostrarEnTablaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarEnTablaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MostrarEnTablaMouseEntered
+
+    private void MostrarEnTablaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarEnTablaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MostrarEnTablaMouseExited
+
+    private void MostrarEnTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarEnTablaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MostrarEnTablaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,21 +1068,81 @@ public class GestionarUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnIniciarSesion;
+    private javax.swing.JButton Btnconsultar;
+    private javax.swing.JTextField Cedulap;
     private javax.swing.JLabel Cerrar;
-    private javax.swing.JLabel Fondo;
-    private javax.swing.JLabel LabelContra10;
-    private javax.swing.JLabel LabelContra11;
-    private javax.swing.JLabel LabelContra12;
-    private javax.swing.JLabel LabelContra9;
+    private javax.swing.JCheckBox ChkDomingoAlumnos;
+    private javax.swing.JCheckBox ChkDomingoInstructor;
+    private javax.swing.JCheckBox ChkJuevesAlumnos;
+    private javax.swing.JCheckBox ChkJuevesInstructor;
+    private javax.swing.JCheckBox ChkLunesAlumnos;
+    private javax.swing.JCheckBox ChkLunesInstructor;
+    private javax.swing.JCheckBox ChkMartesAlumnos;
+    private javax.swing.JCheckBox ChkMartesInstructor;
+    private javax.swing.JCheckBox ChkMiercolesAlumnos;
+    private javax.swing.JCheckBox ChkSabadoAlumnos;
+    private javax.swing.JCheckBox ChkSabadoInstructor;
+    private javax.swing.JCheckBox ChkViernesAlumnos;
+    private javax.swing.JCheckBox ChkViernesInstructor;
+    private javax.swing.JCheckBox ChkmiercolesInstructor;
+    private javax.swing.JTextField Clavep;
+    private javax.swing.JTextField Direccionp;
+    private javax.swing.JTextField DocumentoP;
+    private javax.swing.JLabel Fondo1;
+    private javax.swing.JLabel Fondo2;
+    private javax.swing.JLabel Fondo3;
+    private javax.swing.JLabel Fondo4;
+    private javax.swing.JLabel Fondo5;
+    private javax.swing.JLabel Fondo6;
+    private javax.swing.JLabel Fondo7;
+    private javax.swing.JTextField HorasP;
     private javax.swing.JLabel Minimizar;
+    private javax.swing.JButton MostrarEnTabla;
+    private javax.swing.JTextField Nivelp;
+    private javax.swing.JTextField Nombrep;
+    private javax.swing.JTextField PreguntaSeguridadP;
+    private javax.swing.JSlider SD;
+    private javax.swing.JSlider SJ;
+    private javax.swing.JSlider SL;
+    private javax.swing.JSlider SM;
+    private javax.swing.JSlider SMier;
+    private javax.swing.JSlider SS;
+    private javax.swing.JSlider SV;
+    private javax.swing.JTextField SegundaP;
+    private javax.swing.JTextField Tipoperfilp;
     private javax.swing.JLabel TituloInicioSesion;
+    private javax.swing.JLabel TituloInicioSesion1;
     private javax.swing.JLabel Volver;
+    private javax.swing.JTextField documentotext;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }
