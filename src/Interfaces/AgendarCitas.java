@@ -7,6 +7,7 @@ package Interfaces;
 import com.toedter.calendar.JDayChooser;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import proyectoagendaroller.Alumno;
 import proyectoagendaroller.Cita;
@@ -35,6 +36,7 @@ public class AgendarCitas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblNombreInstructor = new javax.swing.JLabel();
@@ -48,13 +50,29 @@ public class AgendarCitas extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         lblHoraCita = new javax.swing.JLabel();
         txtHoraCita = new javax.swing.JTextField();
+        lblAgendrarCitas = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
         lblFecha = new javax.swing.JLabel();
-        lblAgendrarCitas = new javax.swing.JLabel();
+        Volver = new javax.swing.JLabel();
+        Cerrar = new javax.swing.JLabel();
+        Minimizar = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNombreInstructor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNombreInstructor.setForeground(new java.awt.Color(255, 255, 255));
         lblNombreInstructor.setText("Nombre Instructor:");
+        jPanel2.add(lblNombreInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 126, -1, -1));
 
         listaInstructores.setModel(new javax.swing.DefaultComboBoxModel<>(Perfiles.nombresInstructores()));
         listaInstructores.addActionListener(new java.awt.event.ActionListener() {
@@ -62,18 +80,31 @@ public class AgendarCitas extends javax.swing.JFrame {
                 listaInstructoresActionPerformed(evt);
             }
         });
+        jPanel2.add(listaInstructores, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 148, 227, -1));
 
+        lblCedulaAlumno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCedulaAlumno.setForeground(new java.awt.Color(255, 255, 255));
         lblCedulaAlumno.setText("Cedula Alumno:");
+        jPanel2.add(lblCedulaAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 179, -1, -1));
 
         txtCedulaAlumno.setText("IngresaCedula");
+        jPanel2.add(txtCedulaAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 135, -1));
 
+        lblLugar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblLugar.setForeground(new java.awt.Color(255, 255, 255));
         lblLugar.setText("Lugar:");
+        jPanel2.add(lblLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 204, -1, -1));
 
         txtLugar.setText("Ingresa Lugar");
+        jPanel2.add(txtLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
+        lblNivel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNivel.setForeground(new java.awt.Color(255, 255, 255));
         lblNivel.setText("Nivel:");
+        jPanel2.add(lblNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 238, -1, -1));
 
         txtNivel.setText("Ingresa Nivel");
+        jPanel2.add(txtNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
         btnGuardar.setText("Guardar Cita");
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -81,123 +112,90 @@ public class AgendarCitas extends javax.swing.JFrame {
                 btnGuardarMouseClicked(evt);
             }
         });
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 311, 112, 50));
 
+        lblHoraCita.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblHoraCita.setForeground(new java.awt.Color(255, 255, 255));
         lblHoraCita.setText("Hora Cita:");
+        jPanel2.add(lblHoraCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 275, -1, -1));
 
         txtHoraCita.setText("Ingresa Hora 1-24");
+        jPanel2.add(txtHoraCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombreInstructor)
-                    .addComponent(listaInstructores, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblCedulaAlumno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblLugar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblHoraCita)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblNivel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(lblNombreInstructor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listaInstructores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCedulaAlumno)
-                    .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLugar)
-                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNivel)
-                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHoraCita)
-                    .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
-        );
+        lblAgendrarCitas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAgendrarCitas.setForeground(new java.awt.Color(255, 255, 255));
+        lblAgendrarCitas.setText("Agendar Cita");
+        jPanel2.add(lblAgendrarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, -70, -1, 910));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 370, 400));
+        jPanel1.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 640, 500));
 
         lblFecha.setText("Selecciona una fecha:");
+        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
 
-        lblAgendrarCitas.setText("Agendar Cita");
+        Volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/VolverBlanco.png"))); // NOI18N
+        Volver.setMaximumSize(new java.awt.Dimension(32, 33));
+        Volver.setMinimumSize(new java.awt.Dimension(32, 33));
+        Volver.setPreferredSize(new java.awt.Dimension(32, 33));
+        Volver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VolverMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                VolverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                VolverMouseExited(evt);
+            }
+        });
+        jPanel1.add(Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(lblAgendrarCitas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFecha)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblFecha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblAgendrarCitas)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Cerrar.png"))); // NOI18N
+        Cerrar.setMaximumSize(new java.awt.Dimension(32, 33));
+        Cerrar.setMinimumSize(new java.awt.Dimension(32, 33));
+        Cerrar.setPreferredSize(new java.awt.Dimension(32, 33));
+        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                CerrarMouseExited(evt);
+            }
+        });
+        jPanel1.add(Cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 0, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizar.png"))); // NOI18N
+        Minimizar.setMaximumSize(new java.awt.Dimension(32, 33));
+        Minimizar.setMinimumSize(new java.awt.Dimension(32, 33));
+        Minimizar.setPreferredSize(new java.awt.Dimension(32, 33));
+        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MinimizarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MinimizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MinimizarMouseExited(evt);
+            }
+        });
+        jPanel1.add(Minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoConsultas.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 910));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -234,6 +232,7 @@ public class AgendarCitas extends javax.swing.JFrame {
             
             
             String dia = jCalendar1.getDayChooser().toString();
+            System.out.println(dia);
             boolean pasoDiaDisp = false;
             switch (dia) {
                 case "lunes":
@@ -334,6 +333,51 @@ public class AgendarCitas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
+    private void VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverMouseClicked
+        dispose();
+        JFrame Menu = new Menu();
+        Menu.setVisible(true);
+    }//GEN-LAST:event_VolverMouseClicked
+
+    private void VolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverMouseEntered
+        Volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/VolverVerde.png"))); // NOI18N
+    }//GEN-LAST:event_VolverMouseEntered
+
+    private void VolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverMouseExited
+        Volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/VolverBlanco.png"))); // NOI18N
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VolverMouseExited
+
+    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
+        dispose();
+    }//GEN-LAST:event_CerrarMouseClicked
+
+    private void CerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseEntered
+        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/cerrarrosa.png"))); // NOI18N
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CerrarMouseEntered
+
+    private void CerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseExited
+        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Cerrar.png")));
+    }//GEN-LAST:event_CerrarMouseExited
+
+    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_MinimizarMouseClicked
+
+    private void MinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseEntered
+        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizarverde.png"))); // NOI18N
+    }//GEN-LAST:event_MinimizarMouseEntered
+
+    private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
+        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizar.png"))); // NOI18N
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MinimizarMouseExited
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -370,8 +414,14 @@ public class AgendarCitas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Cerrar;
+    private javax.swing.JLabel Minimizar;
+    private javax.swing.JLabel Volver;
     private javax.swing.JButton btnGuardar;
     private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAgendrarCitas;
