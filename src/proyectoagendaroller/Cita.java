@@ -1,20 +1,34 @@
 
 package proyectoagendaroller;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.Random;
 public class Cita {
-    //Atributos de las citas
+ //Atributos de las citas
     private int idCita;
     private int cedulaInstructor;
     private int cedulaAlumno;
-    private LocalDate fechaCita;
+    private Date fechaCita;
     private int horaCita;
     private String lugarCita;
     private String nivel;
     private String estadoCita;
-    
+
     // Constructor
-    public Cita(int idCita, int cedulaInstructor, int cedulaAlumno, LocalDate fechaCita, int horaCita, String lugarCita, String nivel, String estadoCita) {
+    public Cita(){}
+    public Cita(int idCita, int cedulaInstructor, int cedulaAlumno, Date fechaCita, int horaCita, String lugarCita, String nivel, String estadoCita) {
         this.idCita = idCita;
+        this.cedulaInstructor = cedulaInstructor;
+        this.cedulaAlumno = cedulaAlumno;
+        this.fechaCita = fechaCita;
+        this.horaCita = horaCita;
+        this.lugarCita = lugarCita;
+        this.nivel = nivel;
+        this.estadoCita = estadoCita;
+    }
+    
+    public Cita(int cedulaInstructor, int cedulaAlumno, Date fechaCita, int horaCita, String lugarCita, String nivel, String estadoCita){
+        this.idCita = generarID();
         this.cedulaInstructor = cedulaInstructor;
         this.cedulaAlumno = cedulaAlumno;
         this.fechaCita = fechaCita;
@@ -51,10 +65,10 @@ public class Cita {
     }
 
     // Getter y Setter para fechaCita
-    public LocalDate getFechaCita() {
+    public Date getFechaCita() {
         return fechaCita;
     }
-    public void setFechaCita(LocalDate fechaCita) {
+    public void setFechaCita(Date fechaCita) {
         this.fechaCita = fechaCita;
     }
 
@@ -89,5 +103,23 @@ public class Cita {
     public void setEstadoCita(String estadoCita) {
         this.estadoCita = estadoCita;
     }
-    
+    public static int generarID() {
+        Random random = new Random();
+        return random.nextInt(9000) + 1000; // Generar un número aleatorio entre 1000 y 9999
+    }
+
+    public String mostrarCita(){
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("ID Cita: ").append(getIdCita()).append("\n")
+                    .append("Cedula Instructor: ").append(getCedulaInstructor()).append("\n")
+                    .append("Cedula Alumno: ").append(getCedulaAlumno()).append("\n")
+                    .append("Fecha Cita: ").append(getFechaCita()).append("\n")
+                    .append("Hora Cita: ").append(getHoraCita()).append("\n")
+                    .append("Lugar Cita: ").append(getLugarCita()).append("\n")
+                    .append("Nivel: ").append(getNivel()).append("\n")
+                    .append("Estado Cita: ").append(getEstadoCita()).append("\n")
+                    .append("-------------------").append("\n");
+
+        return mensaje.toString();
+    }
 }
