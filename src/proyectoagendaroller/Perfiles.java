@@ -19,7 +19,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+
 import java.util.Comparator;
+
 //import javax.lang.model.util.Types;
 
 public class Perfiles {
@@ -521,6 +523,15 @@ public class Perfiles {
         
         // el tipo de perfil 4 permite identificar los usuarios nulos cuanod no se encuentra algun usuario o es necesario identificarlo a lo largo del flujo
         noEncontrado.setTipoDePerfil(4);
+        noEncontrado.setCedula(4);
+        noEncontrado.setPreguntaSeguridad("1");
+        noEncontrado.setNombre("4");
+        noEncontrado.setCelular(4);
+        noEncontrado.setDireccion("4");
+        noEncontrado.setClaveAcceso("4");
+        
+        
+                
         
         return noEncontrado;    
     }
