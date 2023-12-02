@@ -62,5 +62,12 @@ public class Alumno extends Usuario {
         this.horaClase = horaClase;
     }
     
-    
+    public int obtenerSumaHorasClase() {
+        int suma = 0;
+        for (int hora : horaClase) {
+            suma += hora;
+        }
+        return suma;
+    }
+
 }
