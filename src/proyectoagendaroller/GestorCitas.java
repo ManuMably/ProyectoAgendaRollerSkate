@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Comparator;
+import proyectoagendaroller.Cita;
+import static proyectoagendaroller.Perfiles.buscarPerfilCedula;
 import static proyectoagendaroller.Perfiles.getConnection;
 
 
@@ -131,14 +135,13 @@ public class GestorCitas {
                 ps.setInt(2, cita.getCedulaInstructor());
                 ps.setInt(3,cita.getCedulaAlumno());
                 LocalDate fechaCita = cita.getFechaCita();
-                Date fechaSql = Date.valueOf(fechaCita);
-                ps.setDate(4, (java.sql.Date) fechaSql);
-                
-                
+                long millis = fechaCita.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
+                java.sql.Date fechaSql = new java.sql.Date(millis);
+                ps.setDate(4, fechaSql);
                 ps.setInt(5, cita.getHoraCita());
                 ps.setString(6, cita.getLugarCita());
-                ps.setString(7, usuario.getPreguntaSeguridad());
-                ps.setString(8, usuario.getPreguntaSeguridad());
+                ps.setString(7, cita.getNivel());
+                ps.setString(8, cita.getEstadoCita());
 
                 
 
@@ -146,9 +149,9 @@ public class GestorCitas {
                 int filasAfectadas = ps.executeUpdate();
 
                 if (filasAfectadas > 0) {
-                    System.out.println("Inserción exitosa para el usuario con Documento " + usuario.getCedula());
+                    System.out.println("Inserción exitosa para la cita: " + cita.getIdCita());
                 } else {
-                    System.out.println("La inserción no tuvo éxito para el usuario con Documento " + usuario.getCedula());
+                    System.out.println("La inserción no tuvo éxito para el usuario con Documento " + cita.getIdCita());
                 }
             }
         }
@@ -167,5 +170,178 @@ public class GestorCitas {
             e.printStackTrace();
         }
     }
-}     
+}
+    public static int registrarCita(Cita citaNueva){
+        int nuevoTamano = numeroCitasRegistradas + 1;
+        Cita[] nuevoArreglo = new Cita[nuevoTamano];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArreglo[0] = citaNueva;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(citasRegistradas, 0, nuevoArreglo, 1, numeroCitasRegistradas);
+
+        citasRegistradas = nuevoArreglo;
+        numeroCitasRegistradas = nuevoTamano;
+        return 1;
+    
+    }
+    
+    
+    public static Cita buscarCita(int cedula, int idCita){
+        
+        for (Cita cita : citasRegistradas) {
+            int cedulaInstructor = cita.getCedulaInstructor();
+            int idCitaR = cita.getIdCita();
+            
+            
+            if (cedulaInstructor == cedula && idCitaR == idCita ) {
+                return cita;   
+            }   
+        }
+        
+        // se  envia un usuario vacio en caso de no encontrar el de la bsuqueda
+        Cita noEncontrada = new Cita();
+        
+        
+        
+        return noEncontrada;    
+    }
+    
+    
+    
+    public int borrarCita(int cedula, int idCitaB){    
+    
+    // Buscar el usuario en los arreglos
+    Cita citaBorrar =  buscarCita(cedula, idCitaB);
+
+    // Verificar si la cita fue encontrada
+        Connection con = null;
+        PreparedStatement psDelete = null;
+
+        try {
+            con = getConnection();
+
+            // Aplicación de PreparedStatement para DELETE
+            String deleteQuery = "DELETE FROM citas WHERE CedulaInstructor = ? AND IdCita = ?";
+            psDelete = con.prepareStatement(deleteQuery);
+            psDelete.setInt(1, citaBorrar.getCedulaInstructor()); // Establecer el valor para CedulaInstructor
+            psDelete.setInt(2, citaBorrar.getIdCita()); // Establecer el valor para IdCita
+
+            // Ejecutar la consulta de eliminación
+            int filasAfectadas = psDelete.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Borrado exitoso para el la cita del profesor de cedula: " + cedula);
+                return 1;
+            } else {
+                System.out.println("El borrado no tuvo éxito para  la cita del profesor de cedula: " + cedula + ". cita no encontrada.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar PreparedStatement y Connection en el bloque finally
+            try {
+                if (psDelete != null) {
+                    psDelete.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+    
+    public static int modificarCita(Cita modificadaCita){
+    for (Cita citaR : citasRegistradas) {
+            if (citaR.getIdCita()== modificadaCita.getIdCita()) {
+                citaR = modificadaCita;
+                
+            }
+            
+        }
+        
+        //public void modificarUsuarioEnBaseDeDatos(int cedula, String nuevoNombre, long nuevoCelular, String nuevaDireccion) {
+        Connection con = null;
+        PreparedStatement psSelect = null;
+        PreparedStatement psUpdate = null;
+
+        try {
+            con = getConnection();
+
+            // Aplicación de PreparedStatement para SELECT
+            String selectQuery = "SELECT * FROM citas WHERE IdCita = ?";
+            psSelect = con.prepareStatement(selectQuery);
+            psSelect.setInt(1, modificadaCita.getIdCita());
+            ResultSet rs = psSelect.executeQuery();
+
+            if (rs.next()) {
+                // Usuario encontrado, proceder con la modificación
+                String updateQuery = "UPDATE citas SET IdCita = ?, "
+                        + "CedulaInstructor = ?,"
+                        + " Direccion = ? "
+                        + "WHERE Documento = ?";
+                psUpdate = con.prepareStatement(updateQuery);
+                psUpdate.setInt(1, modificadaCita.getIdCita());
+                psUpdate.setInt(2, modificadaCita.getCedulaInstructor());
+                psUpdate.setInt(3,modificadaCita.getCedulaAlumno());
+                LocalDate fechaCita = modificadaCita.getFechaCita();
+                long millis = fechaCita.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
+                java.sql.Date fechaSql = new java.sql.Date(millis);
+                psUpdate.setDate(4, fechaSql);
+                psUpdate.setInt(5, modificadaCita.getHoraCita());
+                psUpdate.setString(6, modificadaCita.getLugarCita());
+                psUpdate.setString(7, modificadaCita.getNivel());
+                psUpdate.setString(8, modificadaCita.getEstadoCita());
+                
+                
+
+                // Ejecutar la consulta de actualización
+                int filasAfectadas = psUpdate.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    System.out.println("Modificación exitosa para la cita con Id " + modificadaCita.getIdCita());
+                    return 1;
+                } else {
+                    System.out.println("La modificación no tuvo éxito para la cita con Id " + modificadaCita.getIdCita());
+                }
+            } else {
+                // Usuario no encontrado
+                System.out.println("la cita con id " + modificadaCita.getIdCita()+ " no encontrado. No se realizó ninguna modificación.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar PreparedStatements y Connection en el bloque finally
+            try {
+                if (psSelect != null) {
+                    psSelect.close();
+                }
+                if (psUpdate != null) {
+                    psUpdate.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+    
+    public void ordenarCitasPorFecha() {
+        // funciones para ordenar y comparar las fechas
+        Arrays.sort(citasRegistradas, Comparator.comparing(Cita::getFechaCita));
+    }
+    public void ordenarCitasPorId() {
+        // funciones para ordenar y comparar los id
+        Arrays.sort(citasRegistradas, Comparator.comparingInt(Cita::getIdCita));
+
+        
+    }
+    
 }
