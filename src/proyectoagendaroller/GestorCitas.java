@@ -90,8 +90,7 @@ public class GestorCitas {
                 citasRegistradas[numeroCitasRegistradas].setIdCita(Integer.parseInt(rs.getString("IdCita")));
                 citasRegistradas[numeroCitasRegistradas].setCedulaInstructor(Integer.parseInt(rs.getString("CedulaInstructor")));
                 citasRegistradas[numeroCitasRegistradas].setCedulaAlumno(Integer.parseInt(rs.getString("CedulaAlumno")));
-                citasRegistradas[numeroCitasRegistradas].setFechaCita(rs.getDate("FechaCita").toLocalDate());
-                citasRegistradas[numeroCitasRegistradas].setHoraCita(rs.getInt("HoraCita"));   
+                citasRegistradas[numeroCitasRegistradas].setFechaCita(rs.getDate("FechaCita"));citasRegistradas[numeroCitasRegistradas].setHoraCita(rs.getInt("HoraCita"));   
                 citasRegistradas[numeroCitasRegistradas].setLugarCita(rs.getString("LugarCita"));                
                 citasRegistradas[numeroCitasRegistradas].setNivel(rs.getString("Nivel"));
                 citasRegistradas[numeroCitasRegistradas].setEstadoCita(rs.getString("EstadoCita"));
@@ -107,7 +106,19 @@ public class GestorCitas {
         return -1;
     }
     
-    public void guardarUsuariosRegistrados() {
+    public void guardarCitasRegistradas(Cita citaNueva) {
+        int nuevoTamano = numeroCitasRegistradas + 1;
+        Cita[] nuevoArreglo = new Cita[nuevoTamano];
+
+        // Asignar el nuevo elemento en la primera posición del nuevo arreglo
+        nuevoArreglo[0] = citaNueva;
+
+        // Copiar los elementos del arreglo original al nuevo arreglo, empezando desde la posición 1
+        System.arraycopy(citasRegistradas, 0, nuevoArreglo, 1, numeroCitasRegistradas);
+
+        citasRegistradas = nuevoArreglo;
+        numeroCitasRegistradas = nuevoTamano;
+        
     Connection con = null;
     PreparedStatement ps = null;
 
@@ -134,10 +145,8 @@ public class GestorCitas {
                 ps.setInt(1, cita.getIdCita());
                 ps.setInt(2, cita.getCedulaInstructor());
                 ps.setInt(3,cita.getCedulaAlumno());
-                LocalDate fechaCita = cita.getFechaCita();
-                long millis = fechaCita.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
-                java.sql.Date fechaSql = new java.sql.Date(millis);
-                ps.setDate(4, fechaSql);
+                Date fechaCita = cita.getFechaCita();
+                ps.setDate(4, java.sql.Date.valueOf(fechaCita.toString()));
                 ps.setInt(5, cita.getHoraCita());
                 ps.setString(6, cita.getLugarCita());
                 ps.setString(7, cita.getNivel());
@@ -170,7 +179,7 @@ public class GestorCitas {
             e.printStackTrace();
         }
     }
-}
+}  
     public static int registrarCita(Cita citaNueva){
         int nuevoTamano = numeroCitasRegistradas + 1;
         Cita[] nuevoArreglo = new Cita[nuevoTamano];
@@ -288,11 +297,9 @@ public class GestorCitas {
                 psUpdate.setInt(1, modificadaCita.getIdCita());
                 psUpdate.setInt(2, modificadaCita.getCedulaInstructor());
                 psUpdate.setInt(3,modificadaCita.getCedulaAlumno());
-                LocalDate fechaCita = modificadaCita.getFechaCita();
-                long millis = fechaCita.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
-                java.sql.Date fechaSql = new java.sql.Date(millis);
-                psUpdate.setDate(4, fechaSql);
-                psUpdate.setInt(5, modificadaCita.getHoraCita());
+                Date fechaCita = modificadaCita.getFechaCita();
+                psUpdate.setDate(4, java.sql.Date.valueOf(fechaCita.toString())); 
+               psUpdate.setInt(5, modificadaCita.getHoraCita());
                 psUpdate.setString(6, modificadaCita.getLugarCita());
                 psUpdate.setString(7, modificadaCita.getNivel());
                 psUpdate.setString(8, modificadaCita.getEstadoCita());
