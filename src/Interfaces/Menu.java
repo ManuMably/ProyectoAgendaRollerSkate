@@ -149,6 +149,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(LabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 70, 310, 60));
 
         LabelbtnAgendarCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/calendario.png"))); // NOI18N
+        LabelbtnAgendarCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LabelbtnAgendarCitasMouseClicked(evt);
+            }
+        });
         getContentPane().add(LabelbtnAgendarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 300, 300));
 
         LabelBtnConsultarcitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/consulta.png"))); // NOI18N
@@ -239,6 +244,12 @@ public class Menu extends javax.swing.JFrame {
         JFrame GestionarUsuarios = new GestionarUsuarios();
         GestionarUsuarios.setVisible(true);
     }//GEN-LAST:event_LabelbtnGestionarUsuariosMouseClicked
+
+    private void LabelbtnAgendarCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelbtnAgendarCitasMouseClicked
+        dispose();
+        JFrame Agendar = new AgendarCitas();
+        Agendar.setVisible(true);
+    }//GEN-LAST:event_LabelbtnAgendarCitasMouseClicked
 
     /**
      * @param args the command line arguments
