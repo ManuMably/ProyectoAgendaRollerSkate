@@ -4,18 +4,27 @@
  */
 package Interfaces;
 
-/**
- *
- * @author zTMike
- */
+import com.toedter.calendar.JDayChooser;
+import java.time.LocalDate;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import proyectoagendaroller.Alumno;
+import proyectoagendaroller.Cita;
+import proyectoagendaroller.*;
+import proyectoagendaroller.Instructor;
+import proyectoagendaroller.Perfiles;
 public class AgendarCitas extends javax.swing.JFrame {
+
+    private String nombreInstructorSeleccionado;
 
     /**
      * Creates new form AgendarCitas
      */
+    
     public AgendarCitas() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +35,302 @@ public class AgendarCitas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        lblNombreInstructor = new javax.swing.JLabel();
+        listaInstructores = new javax.swing.JComboBox<>();
+        lblCedulaAlumno = new javax.swing.JLabel();
+        txtCedulaAlumno = new javax.swing.JTextField();
+        lblLugar = new javax.swing.JLabel();
+        txtLugar = new javax.swing.JTextField();
+        lblNivel = new javax.swing.JLabel();
+        txtNivel = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        lblHoraCita = new javax.swing.JLabel();
+        txtHoraCita = new javax.swing.JTextField();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        lblFecha = new javax.swing.JLabel();
+        lblAgendrarCitas = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblNombreInstructor.setText("Nombre Instructor:");
+
+        listaInstructores.setModel(new javax.swing.DefaultComboBoxModel<>(Perfiles.nombresInstructores()));
+        listaInstructores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaInstructoresActionPerformed(evt);
+            }
+        });
+
+        lblCedulaAlumno.setText("Cedula Alumno:");
+
+        txtCedulaAlumno.setText("IngresaCedula");
+
+        lblLugar.setText("Lugar:");
+
+        txtLugar.setText("Ingresa Lugar");
+
+        lblNivel.setText("Nivel:");
+
+        txtNivel.setText("Ingresa Nivel");
+
+        btnGuardar.setText("Guardar Cita");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
+            }
+        });
+
+        lblHoraCita.setText("Hora Cita:");
+
+        txtHoraCita.setText("Ingresa Hora 1-24");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreInstructor)
+                    .addComponent(listaInstructores, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblCedulaAlumno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblLugar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblHoraCita)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblNivel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(lblNombreInstructor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listaInstructores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCedulaAlumno)
+                    .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLugar)
+                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNivel)
+                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHoraCita)
+                    .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+
+        lblFecha.setText("Selecciona una fecha:");
+
+        lblAgendrarCitas.setText("Agendar Cita");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(lblAgendrarCitas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFecha)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblAgendrarCitas)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listaInstructoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaInstructoresActionPerformed
+        // TODO add your handling code here:
+        // Obtener el nombre del instructor seleccionado
+        String nombreInstructorSeleccionado = (String) listaInstructores.getSelectedItem();
+        // Puedes imprimir el nombre para verificar si se obtuvo correctamente
+        System.out.println("Instructor seleccionado: " + nombreInstructorSeleccionado);
+        this.nombreInstructorSeleccionado = nombreInstructorSeleccionado;
+    }//GEN-LAST:event_listaInstructoresActionPerformed
+
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        // TODO add your handling code here:
+        // Verificar si se ha seleccionado un instructor antes de intentar usar el nombre
+        if (nombreInstructorSeleccionado != null && !nombreInstructorSeleccionado.isEmpty()) {
+        // se capturan los datos que nos proporciona el usuario para crear la cita
+        //
+            Instructor buscadoInstructor = (Instructor)Perfiles.buscarPerfilNombre(nombreInstructorSeleccionado);
+            Alumno buscadoAlumno = (Alumno)Perfiles.buscarPerfilCedula(Integer.getInteger(txtCedulaAlumno.getText()));
+            Date fechaElegida = jCalendar1.getDate();
+            int horaElegida = Integer.getInteger(txtHoraCita.getText());
+            String lugarElegido = txtLugar.getText();
+            String nivelElegido = txtNivel.getText();
+            String estadoXDefecto = "Pendiente";
+            
+            //datos para modificar el instructor            
+            int[] diasDisponiblesInstructor = buscadoInstructor.getDiasDisponiblesMarca();
+            int[] horasDisponiblesInstructor = buscadoInstructor.getHorasDisponibles();
+            //datos para modificar el alumno
+            int[] diaClaseAlumno = buscadoAlumno.getDiaClaseMarca();
+            int[] horasPendientesAlumno = buscadoAlumno.getHoraClase();
+            
+            String dia = jCalendar1.getDayChooser().toString();
+            boolean pasoDiaDisp = false;
+            switch (dia) {
+                case "lunes":
+                      if (diasDisponiblesInstructor[0]==1) {
+                          pasoDiaDisp = true;
+                          diasDisponiblesInstructor[0]= 0;
+                          horasDisponiblesInstructor[0]=0;
+                          diaClaseAlumno[0]= 1;
+                          horasPendientesAlumno[0]= horaElegida;
+                    }
+                 
+                    
+                    break;
+                case "martes":
+                    if (diasDisponiblesInstructor[1]==1) {
+                          pasoDiaDisp = true; 
+                          diasDisponiblesInstructor[1]= 0;
+                          horasDisponiblesInstructor[1]=0;
+                          diaClaseAlumno[1]= 1;
+                          horasPendientesAlumno[1]= horaElegida;
+                    }
+                    
+                    break;
+                case "miercoles":
+                    if (diasDisponiblesInstructor[2]==1) {
+                          pasoDiaDisp = true;   
+                          diasDisponiblesInstructor[2]= 0;
+                          horasDisponiblesInstructor[2]=0;
+                          diaClaseAlumno[2]= 1;
+                          horasPendientesAlumno[2]= horaElegida;
+                    }
+                    
+                    break;
+                case "jueves":
+                    if (diasDisponiblesInstructor[3]==1) {
+                          pasoDiaDisp = true;  
+                          diasDisponiblesInstructor[3]= 0;
+                          horasDisponiblesInstructor[3]=0;
+                          diaClaseAlumno[3]= 1;
+                          horasPendientesAlumno[3]= horaElegida;
+                    }
+                    
+                    break;
+                case "viernes":
+                    if (diasDisponiblesInstructor[4]==1) {
+                          pasoDiaDisp = true; 
+                          diasDisponiblesInstructor[4]= 0;
+                          horasDisponiblesInstructor[4]=0;
+                          diaClaseAlumno[4]= 1;
+                          horasPendientesAlumno[4]= horaElegida;
+                    }
+                    
+                    break;
+                case "sabado":
+                    if (diasDisponiblesInstructor[5]==1) {
+                          pasoDiaDisp = true;
+                          diasDisponiblesInstructor[5]= 0;
+                          horasDisponiblesInstructor[5]=0;
+                          diaClaseAlumno[5]= 1;
+                          horasPendientesAlumno[5]= horaElegida;
+                    }
+                    
+                    break;
+                case "domingo":
+                    if (diasDisponiblesInstructor[6]==1) {
+                          pasoDiaDisp = true;
+                          diasDisponiblesInstructor[6]= 0;
+                          horasDisponiblesInstructor[6]=0;
+                          diaClaseAlumno[6]= 1;
+                          horasPendientesAlumno[6]= horaElegida;
+                    }
+                    
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            buscadoAlumno.setDiaClaseMarca(diaClaseAlumno);
+            buscadoAlumno.setHoraClase(horasPendientesAlumno);
+            buscadoAlumno.setNivel(nivelElegido);
+            buscadoInstructor.setDiasDisponiblesMarca(diasDisponiblesInstructor);
+            buscadoInstructor.setHorasDisponibles(horasDisponiblesInstructor);
+            Perfiles.modificarPerfilUsuario(buscadoAlumno);
+            Perfiles.modificarPerfilUsuario(buscadoInstructor);
+            
+            //creacion de cita
+            
+            Cita nuevaCita = new Cita(buscadoInstructor.getCedula(), buscadoAlumno.getCedula(), fechaElegida, horaElegida, lugarElegido, nivelElegido, estadoXDefecto);
+            
+            GestorCitas gestorCitas= new GestorCitas();
+                    gestorCitas.guardarCitasRegistradas(nuevaCita);
+            
+            JOptionPane.showMessageDialog(null, "Se ha guardado la cita: \n"+nuevaCita.mostrarCita());
+        // Resto del código para manejar la nueva cita
+        } else {
+            // Mostrar un mensaje de error o realizar alguna acción apropiada si no se ha seleccionado un instructor
+            System.out.println("Error: No se ha seleccionado un instructor.");
+        }
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +368,21 @@ public class AgendarCitas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
+    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAgendrarCitas;
+    private javax.swing.JLabel lblCedulaAlumno;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHoraCita;
+    private javax.swing.JLabel lblLugar;
+    private javax.swing.JLabel lblNivel;
+    private javax.swing.JLabel lblNombreInstructor;
+    private javax.swing.JComboBox<String> listaInstructores;
+    private javax.swing.JTextField txtCedulaAlumno;
+    private javax.swing.JTextField txtHoraCita;
+    private javax.swing.JTextField txtLugar;
+    private javax.swing.JTextField txtNivel;
     // End of variables declaration//GEN-END:variables
 }
