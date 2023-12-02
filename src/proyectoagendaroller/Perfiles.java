@@ -535,6 +535,36 @@ public class Perfiles {
         
         return noEncontrado;    
     }
+    public static Usuario buscarPerfilNombre(String busqueda){
+        
+        for (Usuario usuario : usuariosRegistrados) {
+            String nombreUsuario = usuario.getNombre();
+            String nombreBusqueda = busqueda;
+            
+            if (nombreUsuario == nombreBusqueda) {
+                return usuario;   
+            }   
+        }
+        
+        // se  envia un usuario vacio en caso de no encontrar el de la bsuqueda
+        Usuario noEncontrado = new Usuario();
+        
+        // el tipo de perfil 4 permite identificar los usuarios nulos cuanod no se encuentra algun usuario o es necesario identificarlo a lo largo del flujo
+        noEncontrado.setTipoDePerfil(4);
+        
+        return noEncontrado;    
+    }
+    public static String[] nombresInstructores(){
+        Instructor[] listaActual = Perfiles.getUsuariosInstructores();
+        int tamanoListaActual= Perfiles.getNumeroInstructores();
+        String[] nombresInstructores = new String[tamanoListaActual];
+        // Llenar el array con los nombres de los instructores
+        for (int i = 0; i < tamanoListaActual; i++) {
+            nombresInstructores[i] = listaActual[i].getNombre();  // Cambia esto según la propiedad que desees obtener
+        }
+        return nombresInstructores;
+    
+    }
     
     public static void modificarPerfilUsuario (Usuario modificado){
         for (Usuario usuario : usuariosRegistrados) {

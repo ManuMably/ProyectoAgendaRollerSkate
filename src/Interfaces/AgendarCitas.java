@@ -230,12 +230,14 @@ public class AgendarCitas extends javax.swing.JFrame {
             int[] diaClaseAlumno = buscadoAlumno.getDiaClaseMarca();
             int[] horasPendientesAlumno = buscadoAlumno.getHoraClase();
             
+            
             String dia = jCalendar1.getDayChooser().toString();
             System.out.println(dia);
             boolean pasoDiaDisp = false;
             switch (dia) {
                 case "lunes":
-                      if (diasDisponiblesInstructor[0]==1) {
+                      if (
+                              diasDisponiblesInstructor[0]==1) {
                           pasoDiaDisp = true;
                           diasDisponiblesInstructor[0]= 0;
                           horasDisponiblesInstructor[0]=0;
