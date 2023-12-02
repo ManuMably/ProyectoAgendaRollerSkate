@@ -46,4 +46,12 @@ public class Instructor extends Usuario {
         this.horasDisponibles = horasDisponibles;
     }
     
+    
+  public int obtenerSumaHorasDisponibles() {
+        int suma = 0;
+        for (int hora : horasDisponibles) {
+            suma += hora;
+        }
+        return suma;
+    }
 }
