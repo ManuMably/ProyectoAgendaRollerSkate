@@ -5,19 +5,25 @@
 package Interfaces;
 import javax.swing.*;
 import java.util.Random;
+import proyectoagendaroller.Perfiles;
+import proyectoagendaroller.GestorCitas;
 
 /**
  *
  * @author zTMike
  */
 public class Inicio_Sesion extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Menu
-     */
+    Perfiles perfil =new Perfiles();
+    GestorCitas cita = new GestorCitas();
+    
+    
+    
+     
     public Inicio_Sesion() {
         
         initComponents();
+        perfil.cargarDatosRegistrados();
+        cita.cargarDatosRegistrados();
     }
 
     /**
