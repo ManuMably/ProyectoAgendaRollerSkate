@@ -41,7 +41,12 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnPerfiles.setText("Perfiles");
+        btnPerfiles.setText("Gestionar Usuario");
+        btnPerfiles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPerfilesMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,7 +57,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgendar)
                     .addComponent(btnPerfiles))
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,6 +80,15 @@ public class Menu extends javax.swing.JFrame {
         agendarCitas.setVisible(true);
         });
     }//GEN-LAST:event_btnAgendarMouseClicked
+
+    private void btnPerfilesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilesMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(() -> {
+            dispose();
+            GestionarUsuarios gestionarUsuarios = new GestionarUsuarios();
+            gestionarUsuarios.setVisible(true);
+        });
+    }//GEN-LAST:event_btnPerfilesMouseClicked
 
     /**
      * @param args the command line arguments

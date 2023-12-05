@@ -29,7 +29,7 @@
                   <Component id="btnAgendar" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPerfiles" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="295" max="32767" attributes="0"/>
+              <EmptySpace pref="271" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,8 +56,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnPerfiles">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Perfiles"/>
+        <Property name="text" type="java.lang.String" value="Gestionar Usuario"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPerfilesMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
