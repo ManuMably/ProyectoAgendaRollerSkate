@@ -3,14 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaces;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
  *
- * @author zTMike
+ * @author 57302
  */
 public class Menu extends javax.swing.JFrame {
 
@@ -18,7 +17,6 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Menu() {
-        
         initComponents();
     }
 
@@ -31,230 +29,52 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Minimizar = new javax.swing.JLabel();
-        Cerrar = new javax.swing.JLabel();
-        Minimizar1 = new javax.swing.JLabel();
-        LabelConsultarCitas = new javax.swing.JLabel();
-        LabelGestionarUsuarios = new javax.swing.JLabel();
-        LabelAgendarCitas = new javax.swing.JLabel();
-        LabelIconoPersonal = new javax.swing.JLabel();
-        LabelNombre = new javax.swing.JLabel();
-        LabelbtnAgendarCitas = new javax.swing.JLabel();
-        LabelBtnConsultarcitas = new javax.swing.JLabel();
-        LabelbtnGestionarUsuarios = new javax.swing.JLabel();
-        TituloInicioSesion = new javax.swing.JLabel();
-        Fondo = new javax.swing.JLabel();
+        btnAgendar = new javax.swing.JButton();
+        btnPerfiles = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/VolverBlanco.png"))); // NOI18N
-        Minimizar.setMaximumSize(new java.awt.Dimension(32, 33));
-        Minimizar.setMinimumSize(new java.awt.Dimension(32, 33));
-        Minimizar.setPreferredSize(new java.awt.Dimension(32, 33));
-        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgendar.setText("Agendar Cita");
+        btnAgendar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MinimizarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MinimizarMouseExited(evt);
+                btnAgendarMouseClicked(evt);
             }
         });
-        getContentPane().add(Minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/cerrarblanca.png"))); // NOI18N
-        Cerrar.setMaximumSize(new java.awt.Dimension(32, 33));
-        Cerrar.setMinimumSize(new java.awt.Dimension(32, 33));
-        Cerrar.setPreferredSize(new java.awt.Dimension(32, 33));
-        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CerrarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CerrarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CerrarMouseExited(evt);
-            }
-        });
-        getContentPane().add(Cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, -1, -1));
+        btnPerfiles.setText("Perfiles");
 
-        Minimizar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizar Blanco.png"))); // NOI18N
-        Minimizar1.setMaximumSize(new java.awt.Dimension(32, 33));
-        Minimizar1.setMinimumSize(new java.awt.Dimension(32, 33));
-        Minimizar1.setPreferredSize(new java.awt.Dimension(32, 33));
-        Minimizar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Minimizar1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Minimizar1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Minimizar1MouseExited(evt);
-            }
-        });
-        getContentPane().add(Minimizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1520, 0, -1, -1));
-
-        LabelConsultarCitas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelConsultarCitas.setForeground(new java.awt.Color(243, 147, 147));
-        LabelConsultarCitas.setText("Consultar Citas");
-        getContentPane().add(LabelConsultarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 210, 30));
-
-        LabelGestionarUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelGestionarUsuarios.setForeground(new java.awt.Color(243, 147, 147));
-        LabelGestionarUsuarios.setText("Gestionar Usuarios");
-        getContentPane().add(LabelGestionarUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 410, 260, 30));
-
-        LabelAgendarCitas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelAgendarCitas.setForeground(new java.awt.Color(243, 147, 147));
-        LabelAgendarCitas.setText("Agendar Citas");
-        getContentPane().add(LabelAgendarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 220, 30));
-
-        LabelIconoPersonal.setIcon(null);
-        LabelIconoPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LabelIconoPersonalMouseClicked(evt);
-            }
-        });
-        getContentPane().add(LabelIconoPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1430, 50, 140, 140));
-        Random random = new Random();
-
-        // Generar un número aleatorio entre 1 y 10
-        int aleatorio = random.nextInt(5) + 1;
-        switch (aleatorio) {
-            case 1:
-            LabelIconoPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Perro.png")));
-            break;
-            case 2:
-            LabelIconoPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/abeja.png")));
-            break;
-            case 3:
-            LabelIconoPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/pollo.png")));
-            break;
-            case 4:
-            LabelIconoPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/buho.png")));
-            break;
-            case 5:
-            LabelIconoPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/vaca.png")));
-
-            break;
-        }
-
-        LabelNombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        LabelNombre.setText("Hector Fabio Garcia Isaza");
-        getContentPane().add(LabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 70, 310, 60));
-
-        LabelbtnAgendarCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/calendario.png"))); // NOI18N
-        LabelbtnAgendarCitas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LabelbtnAgendarCitasMouseClicked(evt);
-            }
-        });
-        getContentPane().add(LabelbtnAgendarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 300, 300));
-
-        LabelBtnConsultarcitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/consulta.png"))); // NOI18N
-        LabelBtnConsultarcitas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LabelBtnConsultarcitasMouseClicked(evt);
-            }
-        });
-        getContentPane().add(LabelBtnConsultarcitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, 300, 270));
-
-        LabelbtnGestionarUsuarios.setForeground(new java.awt.Color(243, 147, 147));
-        LabelbtnGestionarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/usuario.png"))); // NOI18N
-        LabelbtnGestionarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LabelbtnGestionarUsuariosMouseClicked(evt);
-            }
-        });
-        getContentPane().add(LabelbtnGestionarUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 440, 300, 270));
-
-        TituloInicioSesion.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
-        TituloInicioSesion.setForeground(new java.awt.Color(203, 197, 232));
-        TituloInicioSesion.setText("Menu");
-        getContentPane().add(TituloInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 170, 110));
-
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoMenu.png"))); // NOI18N
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 900));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAgendar)
+                    .addComponent(btnPerfiles))
+                .addContainerGap(295, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(btnAgendar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPerfiles)
+                .addContainerGap(187, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
-        dispose();
-        JFrame login = new Inicio_Sesion();
-        login.setVisible(true);
-
-    }//GEN-LAST:event_MinimizarMouseClicked
-
-    private void MinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseEntered
-        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/VolverVerde.png"))); // NOI18N
-
-    }//GEN-LAST:event_MinimizarMouseEntered
-
-    private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
-        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/VolverBlanco.png"))); // NOI18N
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MinimizarMouseExited
-
-    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
-        dispose();
-    }//GEN-LAST:event_CerrarMouseClicked
-
-    private void CerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseEntered
-        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/cerrarrosa.png"))); // NOI18N
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CerrarMouseEntered
-
-    private void CerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseExited
-        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/cerrarblanca.png")));
-    }//GEN-LAST:event_CerrarMouseExited
-
-    private void Minimizar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimizar1MouseClicked
-        this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
-    }//GEN-LAST:event_Minimizar1MouseClicked
-
-    private void Minimizar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimizar1MouseEntered
-        Minimizar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/minimizarverde.png")));        // TODO add your handling code here:
-    }//GEN-LAST:event_Minimizar1MouseEntered
-
-    private void Minimizar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimizar1MouseExited
-        Minimizar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizar Blanco.png")));
-    }//GEN-LAST:event_Minimizar1MouseExited
-
-    private void LabelIconoPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelIconoPersonalMouseClicked
-        dispose();
-       JFrame perfil = new Perfil();
-       perfil.setVisible(true);
-        
-    }//GEN-LAST:event_LabelIconoPersonalMouseClicked
-
-    private void LabelBtnConsultarcitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelBtnConsultarcitasMouseClicked
-        dispose();
-        JFrame ConsultarCitas = new ConsultarCitas();
-        ConsultarCitas.setVisible(true);
-    }//GEN-LAST:event_LabelBtnConsultarcitasMouseClicked
-
-    private void LabelbtnGestionarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelbtnGestionarUsuariosMouseClicked
-        dispose();
-        JFrame GestionarUsuarios = new GestionarUsuarios();
-        GestionarUsuarios.setVisible(true);
-    }//GEN-LAST:event_LabelbtnGestionarUsuariosMouseClicked
-
-    private void LabelbtnAgendarCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelbtnAgendarCitasMouseClicked
+    private void btnAgendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendarMouseClicked
         // TODO add your handling code here:
         SwingUtilities.invokeLater(() -> {
         dispose();
-        JFrame agendarCitas = new AgendarCitas();
+        AgendarCitas agendarCitas = new AgendarCitas();
         agendarCitas.setVisible(true);
         });
-        
-    }//GEN-LAST:event_LabelbtnAgendarCitasMouseClicked
+    }//GEN-LAST:event_btnAgendarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -292,18 +112,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Cerrar;
-    private javax.swing.JLabel Fondo;
-    private javax.swing.JLabel LabelAgendarCitas;
-    private javax.swing.JLabel LabelBtnConsultarcitas;
-    private javax.swing.JLabel LabelConsultarCitas;
-    private javax.swing.JLabel LabelGestionarUsuarios;
-    private javax.swing.JLabel LabelIconoPersonal;
-    private javax.swing.JLabel LabelNombre;
-    private javax.swing.JLabel LabelbtnAgendarCitas;
-    private javax.swing.JLabel LabelbtnGestionarUsuarios;
-    private javax.swing.JLabel Minimizar;
-    private javax.swing.JLabel Minimizar1;
-    private javax.swing.JLabel TituloInicioSesion;
+    private javax.swing.JButton btnAgendar;
+    private javax.swing.JButton btnPerfiles;
     // End of variables declaration//GEN-END:variables
 }
