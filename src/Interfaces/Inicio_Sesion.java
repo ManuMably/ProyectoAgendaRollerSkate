@@ -1,22 +1,22 @@
-   /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaces;
-import javax.swing.*;
-import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
- * @author zTMike
+ * @author 57302
  */
 public class Inicio_Sesion extends javax.swing.JFrame {
 
     /**
-     * Creates new form Menu
+     * Creates new form Inicio_Sesion
      */
     public Inicio_Sesion() {
-        
         initComponents();
     }
 
@@ -29,263 +29,106 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        LabelContra = new javax.swing.JLabel();
-        LabelUsuario = new javax.swing.JLabel();
-        TituloInicioSesion = new javax.swing.JLabel();
-        TXTUsuario = new javax.swing.JTextField();
-        BtnIniciarSesion = new javax.swing.JButton();
-        MotivacionTxT = new javax.swing.JTextArea();
-        TXTContra = new javax.swing.JPasswordField();
-        BtnOlvideContra = new javax.swing.JLabel();
-        LineaBajoOlvideContra = new javax.swing.JLabel();
-        Minimizar = new javax.swing.JLabel();
-        Minimizar2 = new javax.swing.JLabel();
-        Logo = new javax.swing.JLabel();
-        Fondo = new javax.swing.JLabel();
+        lblIniciarSesion = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblNombre = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblContrasena = new javax.swing.JLabel();
+        txtContrasena = new javax.swing.JTextField();
+        btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1600, 900));
-        setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1600, 900));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LabelContra.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelContra.setForeground(new java.awt.Color(203, 197, 232));
-        LabelContra.setText("Constraseña:");
-        getContentPane().add(LabelContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 150, 30));
+        lblIniciarSesion.setText("Inicia Sesion");
 
-        LabelUsuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        LabelUsuario.setForeground(new java.awt.Color(203, 197, 232));
-        LabelUsuario.setText("Usuario: ");
-        getContentPane().add(LabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 110, 30));
+        lblNombre.setText("Nombre:");
 
-        TituloInicioSesion.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
-        TituloInicioSesion.setForeground(new java.awt.Color(203, 197, 232));
-        TituloInicioSesion.setText("Inicio de sesion");
-        getContentPane().add(TituloInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 440, 110));
+        txtNombre.setText("                   ");
 
-        TXTUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        TXTUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TXTUsuarioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(TXTUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 190, 30));
+        lblContrasena.setText("Contraseña:");
 
-        BtnIniciarSesion.setBackground(new java.awt.Color(153, 153, 255));
-        BtnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BtnIniciarSesion.setText("Iniciar Sesion");
-        BtnIniciarSesion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        BtnIniciarSesion.setBorderPainted(false);
-        BtnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtContrasena.setText("                   ");
+
+        btnIniciarSesion.setText("Iniciar Sesion");
+        btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnIniciarSesionMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BtnIniciarSesionMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                BtnIniciarSesionMouseExited(evt);
+                btnIniciarSesionMouseClicked(evt);
             }
         });
-        BtnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIniciarSesionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BtnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 530, 200, 40));
 
-        MotivacionTxT.setEditable(false);
-        MotivacionTxT.setBackground(new java.awt.Color(255, 255, 255));
-        MotivacionTxT.setColumns(20);
-        MotivacionTxT.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        MotivacionTxT.setForeground(new java.awt.Color(23, 40, 37));
-        MotivacionTxT.setRows(5);
-        MotivacionTxT.setAutoscrolls(false);
-        MotivacionTxT.setBorder(null);
-        MotivacionTxT.setFocusable(false);
-        getContentPane().add(MotivacionTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 250, 640, 440));
-        Random random = new Random();
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblContrasena)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnIniciarSesion))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblContrasena)
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnIniciarSesion)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
 
-        // Generar un número aleatorio entre 1 y 10
-        int aleatorio = random.nextInt(10) + 1;
-        String fraseMotivacional;
-
-        switch (aleatorio) {
-            case 1:
-            fraseMotivacional = "El éxito es la suma de \npequeños esfuerzos repetidos\ndía tras día.";
-            break;
-            case 2:
-            fraseMotivacional = "Cree en ti mismo y todo será\nposible.";
-            break;
-            case 3:
-            fraseMotivacional = "El fracaso es la llave al éxito.";
-            break;
-            case 4:
-            fraseMotivacional = "No dejes que los errores del\npasado te roben la alegría\ndel presente.";
-            break;
-            case 5:
-            fraseMotivacional = "Cada logro comienza con la\ndecisión de intentarlo.";
-            break;
-            case 6:
-            fraseMotivacional = "La actitud lo es todo, mantén\nuna actitud positiva.";
-            break;
-            case 7:
-            fraseMotivacional = "La perseverancia es la clave\ndel éxito.";
-            break;
-            case 8:
-            fraseMotivacional = "El optimismo es la fe que\nconduce al logro.";
-            break;
-            case 9:
-            fraseMotivacional = "El único modo de hacer un\ngran trabajo es amar lo que \nhaces.";
-            break;
-            case 10:
-            fraseMotivacional = "El futuro pertenece a aquellos\nque creen en la belleza de\nsus sueños.";
-            break;
-            default:
-            fraseMotivacional = "Número fuera de rango, intenta\ncon un número del 1 al 10.";
-            break;
-        }
-        MotivacionTxT.setText(fraseMotivacional);
-
-        TXTContra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(TXTContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 420, 190, 30));
-
-        BtnOlvideContra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BtnOlvideContra.setForeground(new java.awt.Color(204, 196, 235));
-        BtnOlvideContra.setText(" Olvide mi contraseña");
-        BtnOlvideContra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnOlvideContraMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BtnOlvideContraMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                BtnOlvideContraMouseExited(evt);
-            }
-        });
-        getContentPane().add(BtnOlvideContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 570, 200, 30));
-
-        LineaBajoOlvideContra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        LineaBajoOlvideContra.setForeground(new java.awt.Color(204, 196, 235));
-        LineaBajoOlvideContra.setText("_____________________________");
-        getContentPane().add(LineaBajoOlvideContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 570, 220, 30));
-
-        Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizar.png"))); // NOI18N
-        Minimizar.setMaximumSize(new java.awt.Dimension(32, 33));
-        Minimizar.setMinimumSize(new java.awt.Dimension(32, 33));
-        Minimizar.setPreferredSize(new java.awt.Dimension(32, 33));
-        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MinimizarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MinimizarMouseExited(evt);
-            }
-        });
-        getContentPane().add(Minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1520, 0, -1, -1));
-
-        Minimizar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Cerrar.png"))); // NOI18N
-        Minimizar2.setMaximumSize(new java.awt.Dimension(32, 33));
-        Minimizar2.setMinimumSize(new java.awt.Dimension(32, 33));
-        Minimizar2.setPreferredSize(new java.awt.Dimension(32, 33));
-        Minimizar2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Minimizar2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Minimizar2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Minimizar2MouseExited(evt);
-            }
-        });
-        getContentPane().add(Minimizar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, -1, -1));
-
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/LogoApp.jpg"))); // NOI18N
-        getContentPane().add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 690, 420, 230));
-
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/FondoLogin.png"))); // NOI18N
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 900));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(lblIniciarSesion)))
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(lblIniciarSesion)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TXTUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTUsuarioActionPerformed
+    private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTUsuarioActionPerformed
-
-    private void BtnOlvideContraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnOlvideContraMouseClicked
-        System.out.println("Hola");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnOlvideContraMouseClicked
-
-    private void BtnOlvideContraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnOlvideContraMouseEntered
-        BtnOlvideContra.setForeground(new java.awt.Color(103, 87, 164));
+        SwingUtilities.invokeLater(() -> {
+            dispose();
+            Menu menu = new Menu();
+            menu.setVisible(true);
+        });
         
         
-    }//GEN-LAST:event_BtnOlvideContraMouseEntered
-
-    private void BtnOlvideContraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnOlvideContraMouseExited
-        // TODO add your handling code here:
-        BtnOlvideContra.setForeground(new java.awt.Color(204, 196, 235));
-    }//GEN-LAST:event_BtnOlvideContraMouseExited
-
-    private void BtnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnIniciarSesionMouseExited
-        BtnIniciarSesion.setBackground(new java.awt.Color(153, 153, 255));
-        BtnIniciarSesion.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_BtnIniciarSesionMouseExited
-
-    private void BtnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnIniciarSesionMouseEntered
-        // TODO add your handling code here:
-        BtnIniciarSesion.setBackground(new java.awt.Color(103, 87, 164));
-        BtnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         
-    }//GEN-LAST:event_BtnIniciarSesionMouseEntered
-
-    private void Minimizar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimizar2MouseClicked
-    dispose();
-    }//GEN-LAST:event_Minimizar2MouseClicked
-
-    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
-        this.setExtendedState(ICONIFIED);
-        
-
-    }//GEN-LAST:event_MinimizarMouseClicked
-
-    private void Minimizar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimizar2MouseExited
-       Minimizar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Cerrar.png")));
-    }//GEN-LAST:event_Minimizar2MouseExited
-
-    private void Minimizar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimizar2MouseEntered
-    Minimizar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/cerrarrosa.png"))); // NOI18N
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Minimizar2MouseEntered
-
-    private void MinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseEntered
-    Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizarverde.png"))); // NOI18N
-        
-    }//GEN-LAST:event_MinimizarMouseEntered
-
-    private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
-    Minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/Imagenes/Minimizar.png"))); // NOI18N
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MinimizarMouseExited
-
-    private void BtnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIniciarSesionActionPerformed
-        
-    }//GEN-LAST:event_BtnIniciarSesionActionPerformed
-
-    private void BtnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnIniciarSesionMouseClicked
-       dispose();
-       JFrame menu = new Menu();
-       menu.setVisible(true);
-    }//GEN-LAST:event_BtnIniciarSesionMouseClicked
+    
+    }//GEN-LAST:event_btnIniciarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -312,55 +155,6 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Inicio_Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        
-        // Numero aleatorio 
-        Random random = new Random();
-
-        // Generar un número aleatorio entre 1 y 10
-        int numeroAleatorio = random.nextInt(10) + 1; // El rango es de 0 a 9, por eso se suma 1
-        
-        
-        String fraseMotivacional;
-
-        switch (numeroAleatorio) {
-            case 1:
-                fraseMotivacional = "El éxito es la suma de pequeños esfuerzos repetidos día tras día.";
-                break;
-            case 2:
-                fraseMotivacional = "Cree en ti mismo y todo será posible.";
-                break;
-            case 3:
-                fraseMotivacional = "El fracaso es la llave al éxito.";
-                break;
-            case 4:
-                fraseMotivacional = "No dejes que los errores del pasado te roben la alegría del presente.";
-                break;
-            case 5:
-                fraseMotivacional = "Cada logro comienza con la decisión de intentarlo.";
-                break;
-            case 6:
-                fraseMotivacional = "La actitud lo es todo, mantén una actitud positiva.";
-                break;
-            case 7:
-                fraseMotivacional = "La perseverancia es la clave del éxito.";
-                break;
-            case 8:
-                fraseMotivacional = "El optimismo es la fe que conduce al logro.";
-                break;
-            case 9:
-                fraseMotivacional = "El único modo de hacer un gran trabajo es amar lo que haces.";
-                break;
-            case 10:
-                fraseMotivacional = "El futuro pertenece a aquellos que creen en la belleza de sus sueños.";
-                break;
-            default:
-                fraseMotivacional = "Número fuera de rango, intenta con un número del 1 al 10.";
-                break;
-        }
-
-        
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -372,18 +166,12 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnIniciarSesion;
-    private javax.swing.JLabel BtnOlvideContra;
-    private javax.swing.JLabel Fondo;
-    private javax.swing.JLabel LabelContra;
-    private javax.swing.JLabel LabelUsuario;
-    private javax.swing.JLabel LineaBajoOlvideContra;
-    private javax.swing.JLabel Logo;
-    private javax.swing.JLabel Minimizar;
-    private javax.swing.JLabel Minimizar2;
-    private javax.swing.JTextArea MotivacionTxT;
-    private javax.swing.JPasswordField TXTContra;
-    private javax.swing.JTextField TXTUsuario;
-    private javax.swing.JLabel TituloInicioSesion;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblIniciarSesion;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
