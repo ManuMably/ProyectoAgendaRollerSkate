@@ -1,7 +1,18 @@
 
 package Interfaces;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JDayChooser;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import proyectoagendaroller.Cita;
+import proyectoagendaroller.GestorCitas;
+import proyectoagendaroller.Perfiles;
+import proyectoagendaroller.Usuario;
 
 public class AgendarCitas extends javax.swing.JFrame {
 
@@ -34,9 +45,10 @@ public class AgendarCitas extends javax.swing.JFrame {
         lblHora = new javax.swing.JLabel();
         txtHora = new javax.swing.JTextField();
         btnAgendarCita = new javax.swing.JButton();
-        jDayChooser1 = new com.toedter.calendar.JDayChooser();
         lblFecha = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
+        JCalendar = new com.toedter.calendar.JDateChooser();
+        lblAgendarT = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,12 +57,22 @@ public class AgendarCitas extends javax.swing.JFrame {
         txtCedulaInstructor.setText("Ingresa CC");
 
         btnListaInstructores.setText("Lista Instructores");
+        btnListaInstructores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnListaInstructoresMouseClicked(evt);
+            }
+        });
 
         lblCedulaAlumno.setText("Cedula Alumno:");
 
         txtCedulaAlumno.setText("Ingresa CC");
 
         btnListaAlumnos.setText("Lista Alumnos");
+        btnListaAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnListaAlumnosMouseClicked(evt);
+            }
+        });
 
         lblLugar.setText("Lugar:");
 
@@ -64,10 +86,17 @@ public class AgendarCitas extends javax.swing.JFrame {
 
         txtHora.setText("Ingresa Hora");
 
+        btnAgendarCita.setBackground(new java.awt.Color(204, 204, 255));
         btnAgendarCita.setText("Guardar Cita");
+        btnAgendarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgendarCitaMouseClicked(evt);
+            }
+        });
 
         lblFecha.setText("Selecciona Una Fecha:");
 
+        btnVolver.setBackground(new java.awt.Color(204, 255, 204));
         btnVolver.setText("Volver");
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -75,89 +104,90 @@ public class AgendarCitas extends javax.swing.JFrame {
             }
         });
 
+        lblAgendarT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAgendarT.setText("Agendar Cita:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgendarCita)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCedulaAlumno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListaAlumnos))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCedulaInstructor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCedulaInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListaInstructores))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblHora)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtHora))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNivel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtNivel))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblLugar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(lblFecha)
-                        .addGap(162, 162, 162))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDayChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVolver)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCedulaAlumno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnListaAlumnos))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblHora)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtHora))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblNivel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtNivel))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblLugar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFecha)
+                            .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblCedulaInstructor)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtCedulaInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblAgendarT))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnListaInstructores))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVolver)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(btnVolver)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblFecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDayChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCedulaInstructor)
-                            .addComponent(txtCedulaInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnListaInstructores))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCedulaAlumno)
-                            .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnListaAlumnos))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblLugar)
-                            .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNivel)
-                            .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblHora)
-                            .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAgendarCita)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(lblAgendarT)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCedulaInstructor)
+                    .addComponent(txtCedulaInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListaInstructores))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCedulaAlumno)
+                    .addComponent(txtCedulaAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListaAlumnos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLugar)
+                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNivel)
+                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHora)
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -171,6 +201,80 @@ public class AgendarCitas extends javax.swing.JFrame {
             menu.setVisible(true);
         });
     }//GEN-LAST:event_btnVolverMouseClicked
+
+    private void btnListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaAlumnosMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(() -> {
+            
+            ListaAlumnos lista = new ListaAlumnos();
+            lista.setVisible(true);
+        });
+    }//GEN-LAST:event_btnListaAlumnosMouseClicked
+
+    private void btnListaInstructoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaInstructoresMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(() -> {
+            
+            ListaInstructores lista = new ListaInstructores();
+            lista.setVisible(true);
+        });
+    }//GEN-LAST:event_btnListaInstructoresMouseClicked
+
+    private void btnAgendarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendarCitaMouseClicked
+        // TODO add your handling code here:           
+            JCalendar fechaElegida = new JCalendar();
+
+        // Obtener la fecha seleccionada del JCalendar
+        JDateChooser dayChooser = JCalendar;
+        Calendar fecha = dayChooser.getCalendar();//Calendar.getInstance(dayChooser.getLocale());
+        Date fechaSeleccionada = fecha.getTime();
+        
+        int horaCita = Integer.parseInt(txtHora.getText());
+        String lugarCita = txtLugar.getText();
+        String nivelCita = txtNivel.getText();
+        String estadoCita = "pendiente";
+        
+        int cedulaAlumno = Integer.parseInt(txtCedulaAlumno.getText());
+        int cedulaInstructor = Integer.parseInt(txtCedulaInstructor.getText());
+        
+        try {
+            Usuario Buscado = new Usuario();
+
+            // Luego, buscar el perfil usando la cédula
+            Buscado = Perfiles.buscarPerfilCedula(cedulaAlumno);
+
+            if (Buscado != null) {
+                System.out.println("Número del perfil Alumno encontrado");
+                Buscado = Perfiles.buscarPerfilCedula(cedulaInstructor);
+                if (Buscado != null) {
+                    System.out.println("Número del perfil Instructor encontrado");
+                    GestorCitas gestor = new  GestorCitas();
+                    Cita nuevaCita = new Cita(cedulaInstructor, cedulaAlumno, fechaSeleccionada, horaCita, lugarCita, nivelCita, estadoCita);
+                    gestor.guardarCitasRegistradas(nuevaCita);
+                }   else {
+                    System.out.println("Perfil instructor no encontrado");
+                }
+                
+                
+            }   else {
+                System.out.println("Perfil Alumno no encontrado");
+            }
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si la cédula no es un número válido
+            System.out.println("Ingrese una cédula válida como número.");
+        }
+        // Mensaje que se mostrará en el cuadro de diálogo
+        String mensaje = "Operación realizada correctamente.";
+
+        // Mostrar el cuadro de diálogo
+        JOptionPane.showMessageDialog(null, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        txtCedulaInstructor.setText("");
+        txtCedulaAlumno.setText("");
+        txtLugar.setText("");
+        txtNivel.setText("");
+        txtHora.setText("");
+        
+    }//GEN-LAST:event_btnAgendarCitaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -208,11 +312,12 @@ public class AgendarCitas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser JCalendar;
     private javax.swing.JButton btnAgendarCita;
     private javax.swing.JButton btnListaAlumnos;
     private javax.swing.JButton btnListaInstructores;
     private javax.swing.JButton btnVolver;
-    private com.toedter.calendar.JDayChooser jDayChooser1;
+    private javax.swing.JLabel lblAgendarT;
     private javax.swing.JLabel lblCedulaAlumno;
     private javax.swing.JLabel lblCedulaInstructor;
     private javax.swing.JLabel lblFecha;

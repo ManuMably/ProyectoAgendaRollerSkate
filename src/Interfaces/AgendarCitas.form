@@ -23,106 +23,102 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnAgendarCita" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblCedulaAlumno" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtCedulaAlumno" min="-2" pref="71" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnListaAlumnos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblCedulaAlumno" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtCedulaAlumno" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnListaAlumnos" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblHora" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txtHora" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblNivel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txtNivel" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblLugar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtLugar" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="btnAgendarCita" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                          <Component id="lblFecha" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="JCalendar" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblCedulaInstructor" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtCedulaInstructor" min="-2" pref="71" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="lblAgendarT" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnListaInstructores" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblCedulaInstructor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtCedulaInstructor" min="-2" pref="71" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnListaInstructores" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="lblHora" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtHora" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="lblNivel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtNivel" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="lblLugar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtLugar" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnVolver" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
-                      <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDayChooser1" min="-2" pref="271" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnVolver" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnVolver" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDayChooser1" min="-2" pref="210" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblCedulaInstructor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCedulaInstructor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnListaInstructores" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblCedulaAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCedulaAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnListaAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblLugar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtLugar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblNivel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNivel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblHora" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtHora" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnAgendarCita" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="lblAgendarT" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCedulaInstructor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCedulaInstructor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnListaInstructores" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="81" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCedulaAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCedulaAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnListaAlumnos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblLugar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtLugar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblNivel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNivel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtHora" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <Component id="JCalendar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnAgendarCita" min="-2" pref="51" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,6 +138,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Lista Instructores"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnListaInstructoresMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCedulaAlumno">
       <Properties>
@@ -157,6 +156,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Lista Alumnos"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnListaAlumnosMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLugar">
       <Properties>
@@ -190,10 +192,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAgendarCita">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="cc" red="cc" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Guardar Cita"/>
       </Properties>
-    </Component>
-    <Component class="com.toedter.calendar.JDayChooser" name="jDayChooser1">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAgendarCitaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblFecha">
       <Properties>
@@ -202,11 +208,24 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnVolver">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="ff" red="cc" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Volver"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVolverMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="JCalendar">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAgendarT">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Agendar Cita:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

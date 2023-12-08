@@ -29,10 +29,16 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         btnAgendar = new javax.swing.JButton();
         btnPerfiles = new javax.swing.JButton();
+        btnListadoCitas = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        lblMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         btnAgendar.setText("Agendar Cita");
         btnAgendar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -48,25 +54,65 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnListadoCitas.setText("Citas Registradas");
+        btnListadoCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnListadoCitasMouseClicked(evt);
+            }
+        });
+
+        btnVolver.setBackground(new java.awt.Color(204, 255, 204));
+        btnVolver.setText("volver");
+
+        lblMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblMenu.setText("Menu Principal");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAgendar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(btnPerfiles)
+                .addGap(51, 51, 51))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnVolver)
+                        .addGap(58, 58, 58)
+                        .addComponent(lblMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnListadoCitas)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVolver)
+                    .addComponent(lblMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPerfiles)
+                    .addComponent(btnAgendar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnListadoCitas)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgendar)
-                    .addComponent(btnPerfiles))
-                .addContainerGap(271, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(btnAgendar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPerfiles)
-                .addContainerGap(187, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -79,6 +125,8 @@ public class Menu extends javax.swing.JFrame {
         AgendarCitas agendarCitas = new AgendarCitas();
         agendarCitas.setVisible(true);
         });
+        
+        
     }//GEN-LAST:event_btnAgendarMouseClicked
 
     private void btnPerfilesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilesMouseClicked
@@ -88,7 +136,17 @@ public class Menu extends javax.swing.JFrame {
             GestionarUsuarios gestionarUsuarios = new GestionarUsuarios();
             gestionarUsuarios.setVisible(true);
         });
+        
     }//GEN-LAST:event_btnPerfilesMouseClicked
+
+    private void btnListadoCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListadoCitasMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(() -> {
+            dispose();
+            CitasRegistradas citasRegistradas = new CitasRegistradas();
+            citasRegistradas.setVisible(true);
+        });
+    }//GEN-LAST:event_btnListadoCitasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -127,6 +185,10 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendar;
+    private javax.swing.JButton btnListadoCitas;
     private javax.swing.JButton btnPerfiles;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblMenu;
     // End of variables declaration//GEN-END:variables
 }

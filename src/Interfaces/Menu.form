@@ -23,44 +23,111 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnAgendar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPerfiles" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="271" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-              <Component id="btnAgendar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnPerfiles" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="187" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnAgendar">
+    <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agendar Cita"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
       </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAgendarMouseClicked"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnPerfiles">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Gestionar Usuario"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPerfilesMouseClicked"/>
-      </Events>
-    </Component>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnAgendar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="64" max="32767" attributes="0"/>
+                  <Component id="btnPerfiles" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="btnVolver" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                          <Component id="lblMenu" min="-2" pref="129" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnListadoCitas" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="btnVolver" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblMenu" min="-2" pref="25" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnPerfiles" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAgendar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnListadoCitas" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="56" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btnAgendar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agendar Cita"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAgendarMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPerfiles">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Gestionar Usuario"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPerfilesMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnListadoCitas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Citas Registradas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnListadoCitasMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnVolver">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="ff" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="volver"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblMenu">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Menu Principal"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

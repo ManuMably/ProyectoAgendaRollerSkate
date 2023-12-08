@@ -6,6 +6,8 @@ package Interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import proyectoagendaroller.Perfiles;
+import proyectoagendaroller.Usuario;
 
 /**
  *
@@ -29,17 +31,18 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblIniciarSesion = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblContrasena = new javax.swing.JLabel();
         txtContrasena = new javax.swing.JTextField();
         btnIniciarSesion = new javax.swing.JButton();
+        lblIniciarSesion = new javax.swing.JLabel();
+        lblImagenLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblIniciarSesion.setText("Inicia Sesion");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         lblNombre.setText("Nombre:");
 
@@ -49,6 +52,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
         txtContrasena.setText("                   ");
 
+        btnIniciarSesion.setBackground(new java.awt.Color(204, 204, 255));
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -56,62 +60,67 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             }
         });
 
+        lblIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblIniciarSesion.setText("Inicia Sesion");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblNombre)
+                        .addGap(62, 62, 62)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNombre)
+                            .addComponent(lblContrasena))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblContrasena)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnIniciarSesion))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGap(71, 71, 71)
+                        .addComponent(btnIniciarSesion)
+                        .addGap(123, 123, 123)
+                        .addComponent(lblImagenLogo)))
+                .addContainerGap(143, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblIniciarSesion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(lblIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblContrasena)
-                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContrasena))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnIniciarSesion)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnIniciarSesion)
+                        .addGap(109, 109, 109))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblImagenLogo)
+                        .addGap(99, 99, 99))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(lblIniciarSesion)))
-                .addContainerGap(119, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(lblIniciarSesion)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -119,6 +128,30 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
         // TODO add your handling code here:
+        Usuario sesionUsuario = new Usuario();
+        String cedulaTexto = txtContrasena.getText();
+
+        // Verificar si la cadena de texto es un número entero válido
+        try {
+            int cedula = Integer.parseInt(txtContrasena.getText());
+
+            // Luego, buscar el perfil usando la cédula
+            sesionUsuario = Perfiles.buscarPerfilCedula(cedula);
+
+        if (sesionUsuario != null) {
+            // Hacer algo con el perfil encontrado
+            int numeroPerfil = sesionUsuario.getCedula(); // Suponiendo que hay un método para obtener el número del perfil
+            System.out.println("Número del perfil encontrado: " + numeroPerfil);
+        }   else {
+            System.out.println("Perfil no encontrado");
+        }
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si la cédula no es un número válido
+            System.out.println("Ingrese una cédula válida como número.");
+        }
+        Perfiles.logeadoUsuario(sesionUsuario);
+        System.out.println(sesionUsuario.toString());
+        
         SwingUtilities.invokeLater(() -> {
             dispose();
             Menu menu = new Menu();
@@ -169,6 +202,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblImagenLogo;
     private javax.swing.JLabel lblIniciarSesion;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JTextField txtContrasena;

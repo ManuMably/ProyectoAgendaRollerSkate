@@ -74,8 +74,17 @@ public class Perfiles {
     private static final int numeroAdministradoresMax = 20;
     private static Administrador[] usuariosAdministradores = new Administrador[numeroAdministradoresMax];
     private static int numeroAdministradores = 0;
-            
+    
+    public static Usuario logueado = new Usuario();
     //-------------------------------------------
+    public static void logeadoUsuario(Usuario logueadoU) {
+        logueado = logueadoU;
+    }
+
+    public static Usuario getLogueado() {
+        return logueado;
+    }
+    
     
     // Getter para numeroUsuariosRegistrados
     public static int getNumeroUsuariosRegistrados() {
@@ -417,6 +426,30 @@ public class Perfiles {
         numeroUsuariosRegistrados++;
     }
 }
+    public static String[] listadoInstructores() {
+    String[] listado = new String[numeroInstructores];
+
+    for (int i = 0; i < numeroInstructores; i++) {
+        Instructor instructor = usuariosInstructores[i];
+        String nombreInstructor = instructor.getNombre();
+        String cedulaInstructor = String.valueOf(instructor.getCedula());
+        listado[i] = "nombre: " + nombreInstructor +", Cedula: " + cedulaInstructor;
+    }
+
+    return listado;
+}
+    public static String[] listadoAlumnos() {
+    String[] listado = new String[numeroAlumnos];
+
+    for (int i = 0; i < numeroAlumnos; i++) {
+        Alumno alumno = usuariosAlumnos[i];
+        String nombreAlumno = alumno.getNombre();
+        String cedulaAlumno = String.valueOf(alumno.getCedula());
+        listado[i] = "nombre: " + nombreAlumno +", Cedula: " + cedulaAlumno;
+    }
+
+    return listado;
+}
     
     
     
@@ -567,53 +600,16 @@ public class Perfiles {
     }
     
     public static void modificarPerfilUsuario (Usuario modificado){
-        for (Usuario usuario : usuariosRegistrados) {
-            if (usuario.getCedula()== modificado.getCedula() && usuario.getTipoDePerfil() == modificado.getTipoDePerfil()) {
-                int tipoPerfilModificado = modificado.getTipoDePerfil();
-                switch (tipoPerfilModificado) {
-                    case 1:                      
-                        
-                        //se asginan los valores de instructor al usuario
-                        usuario.setCelular(modificado.getCelular());
-                        usuario.setNombre(modificado.getNombre());
-                        usuario.setDireccion(modificado.getDireccion());
-                        usuario.setClaveAcceso(modificado.getClaveAcceso());
-                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
-                        ((Instructor) usuario).setDiasDisponibles(((Instructor)modificado).getDiasDisponibles());
-                        ((Instructor) usuario).setDiasDisponiblesMarca(((Instructor)modificado).getDiasDisponiblesMarca());
-                        ((Instructor) usuario).setHorasDisponibles(((Instructor)modificado).getHorasDisponibles());
-                        
-                        break;
-                    case 2:
-                        
-                        // se asignan los valores de alumno al usuario
-                        usuario.setCelular(modificado.getCelular());
-                        usuario.setNombre(modificado.getNombre());
-                        usuario.setDireccion(modificado.getDireccion());
-                        usuario.setClaveAcceso(modificado.getClaveAcceso());
-                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
-                        ((Alumno) usuario).setNivel(((Alumno)modificado).getNivel());
-                        ((Alumno) usuario).setDiasClase(((Alumno)modificado).getDiasClase());
-                        ((Alumno) usuario).setDiaClaseMarca(((Alumno)modificado).getDiaClaseMarca());
-                        ((Alumno) usuario).setHoraClase(((Alumno)modificado).getHoraClase());                        
-                        
-                        break;
-                    case 3:
-                        
-                        // se asignan los valores de administrador al usuario
-                        usuario.setCelular(modificado.getCelular());
-                        usuario.setNombre(modificado.getNombre());
-                        usuario.setDireccion(modificado.getDireccion());
-                        usuario.setClaveAcceso(modificado.getClaveAcceso());
-                        usuario.setPreguntaSeguridad(modificado.getPreguntaSeguridad());
-                        ((Administrador) usuario).setSegundaClave(((Administrador)modificado).getSegundaClave());
-                        
-                        
-                        
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+        System.out.println("Valor de modificado: " + modificado.toString());
+        for (int i = 0; i < numeroUsuariosRegistrados - 1; i++) {
+            if (usuariosRegistrados[i].getCedula()== modificado.getCedula()) {
+                        //se asginan los valores al usuario
+                        usuariosRegistrados[i].setCelular(modificado.getCelular());
+                        usuariosRegistrados[i].setNombre(modificado.getNombre());
+                        usuariosRegistrados[i].setDireccion(modificado.getDireccion());
+                        if (modificado.getPreguntaSeguridad()== usuariosRegistrados[i].getPreguntaSeguridad()) {
+                            usuariosRegistrados[i].setClaveAcceso(modificado.getClaveAcceso());                    
+                }                    
             }
             
         }
@@ -629,45 +625,19 @@ public class Perfiles {
             // Aplicación de PreparedStatement para SELECT
             String selectQuery = "SELECT * FROM usuarios WHERE Documento = ?";
             psSelect = con.prepareStatement(selectQuery);
-            psSelect.setString(1, Integer.toString(modificado.getCedula()));
+            psSelect.setInt(1, modificado.getCedula());
             ResultSet rs = psSelect.executeQuery();
 
             if (rs.next()) {
                 // Usuario encontrado, proceder con la modificación
-                String updateQuery = "UPDATE usuarios SET Nombre = ?, Celular = ?, Direccion = ? WHERE Documento = ?";
+                String updateQuery = "UPDATE usuarios SET Nombre = ?, Celular = ?, Direccion = ?, Clave = ? WHERE Documento = ?";
                 psUpdate = con.prepareStatement(updateQuery);
-                psUpdate.setString(1, Integer.toString(modificado.getCedula()));
-                psUpdate.setString(2, modificado.getNombre());
-                psUpdate.setString(3, Long.toString(modificado.getCelular()));
-                psUpdate.setString(4, Integer.toString(modificado.getTipoDePerfil()));
-                psUpdate.setString(5, modificado.getDireccion());
-                psUpdate.setString(6, modificado.getClaveAcceso());
-                psUpdate.setString(7, modificado.getPreguntaSeguridad());
-                if (modificado instanceof Instructor) {
-                    Instructor instructor = (Instructor) modificado;
-                    psUpdate.setString(8, String.join(",", instructor.getDiasDisponibles()));
-                    psUpdate.setString(9, String.join(",", Arrays.stream(instructor.getDiasDisponiblesMarca()).mapToObj(Integer::toString).toArray(String[]::new)));
-                    psUpdate.setString(10, String.join(",", Arrays.stream(instructor.getHorasDisponibles()).mapToObj(Integer::toString).toArray(String[]::new)));
-                } else if (modificado instanceof Alumno) {
-                    Alumno alumno = (Alumno) modificado;
-                    psUpdate.setNull(8, Types.VARCHAR); // DíasDisponibles no aplicable a Alumno
-                    psUpdate.setNull(9, Types.VARCHAR); // DíasDisponiblesMarca no aplicable a Alumno
-                    psUpdate.setNull(10, Types.VARCHAR); // HorasDisponibles no aplicable a Alumno
-                    psUpdate.setString(11, alumno.getNivel());
-                    psUpdate.setString(12, String.join(",", alumno.getDiasClase()));
-                    psUpdate.setString(13, String.join(",", Arrays.stream(alumno.getDiaClaseMarca()).mapToObj(Integer::toString).toArray(String[]::new)));
-                    psUpdate.setString(14, String.join(",", Arrays.stream(alumno.getHoraClase()).mapToObj(Integer::toString).toArray(String[]::new)));
-                } else if (modificado instanceof Administrador) {
-                    Administrador administrador = (Administrador) modificado;
-                    psUpdate.setNull(8, Types.VARCHAR); // DíasDisponibles no aplicable a Administrador
-                    psUpdate.setNull(9, Types.VARCHAR); // DíasDisponiblesMarca no aplicable a Administrador
-                    psUpdate.setNull(10, Types.VARCHAR); // HorasDisponibles no aplicable a Administrador
-                    psUpdate.setNull(11, Types.INTEGER); // Nivel no aplicable a Administrador
-                    psUpdate.setNull(12, Types.VARCHAR); // DíasClase no aplicable a Administrador
-                    psUpdate.setNull(13, Types.VARCHAR); // DíasMarca no aplicable a Administrador
-                    psUpdate.setNull(14, Types.VARCHAR); // HorasClase no aplicable a Administrador
-                    psUpdate.setString(15, administrador.getSegundaClave());
-                }
+                psUpdate.setString(1, modificado.getNombre());
+                psUpdate.setLong(2, modificado.getCelular());
+                psUpdate.setString(3, modificado.getDireccion());
+                psUpdate.setString(4, modificado.getClaveAcceso());
+                psUpdate.setInt(5, modificado.getCedula());
+                
 
                 // Ejecutar la consulta de actualización
                 int filasAfectadas = psUpdate.executeUpdate();

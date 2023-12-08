@@ -107,6 +107,25 @@ public class GestorCitas {
         return -1;
     }
     
+    public static String[] listadoCitasStrings(){
+        String[] listado = new String[numeroCitasRegistradas];
+
+    for (int i = 0; i < numeroCitasRegistradas; i++) {
+        Cita laCita = citasRegistradas[i];
+        String idCita = String.valueOf(laCita.getIdCita());
+        String cedulaInstructor = String.valueOf(laCita.getCedulaInstructor()) ;
+        String cedulaAlumno = String.valueOf(laCita.getCedulaAlumno());
+        String fechaCita = laCita.getFechaCita().toString();
+        String horaCita = String.valueOf(laCita.getHoraCita());
+        String lugar = laCita.getLugarCita();
+        String nivel= laCita.getNivel();
+        String estadoCitaString= laCita.getEstadoCita();
+        listado[i] = "id: " + idCita + ", Cedula Instructor: " + cedulaInstructor+ ", Cedula Alumno: " + cedulaAlumno+ ", fecha: " + fechaCita+ ", hora: " + horaCita+ ", lugar: " + lugar+ ", nivel: " + nivel+ ", Estado: " + estadoCitaString;
+    }
+
+    return listado;
+    
+    }
     public void guardarCitasRegistradas(Cita citaNueva) {
         int nuevoTamano = numeroCitasRegistradas + 1;
         Cita[] nuevoArreglo = new Cita[nuevoTamano];
@@ -119,7 +138,75 @@ public class GestorCitas {
 
         citasRegistradas = nuevoArreglo;
         numeroCitasRegistradas = nuevoTamano;
-        
+        Connection con = null;
+PreparedStatement psSelect = null;
+PreparedStatement psInsert = null;
+
+try {
+    con = getConnection();
+
+    // Aplicación de PreparedStatement para SELECT
+    String selectQuery = "SELECT COUNT(*) FROM citas WHERE IdCita = ?";
+    psSelect = con.prepareStatement(selectQuery);
+
+    // Aplicación de PreparedStatement para INSERT
+    String insertQuery = "INSERT INTO citas (IdCita, CedulaInstructor, CedulaAlumno, FechaCita, HoraCita, LugarCita, Nivel, EstadoCita) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    psInsert = con.prepareStatement(insertQuery);
+
+    for (int i = 0; i < numeroCitasRegistradas; i++) {
+        Cita cita = citasRegistradas[i];
+
+        // Verificar si la cita ya existe
+        psSelect.setInt(1, cita.getIdCita());
+        ResultSet rs = psSelect.executeQuery();
+
+        rs.next(); // Mover el cursor al primer resultado
+
+        if (rs.getInt(1) > 0) {
+            // La cita ya existe, omitir la inserción
+            System.out.println("Cita con ID " + cita.getIdCita() + " ya existe. Omitiendo la inserción.");
+        } else {
+            // Cita no existe, proceder con la inserción
+            // Establecer los valores de los parámetros del PreparedStatement para la inserción
+            psInsert.setInt(1, cita.getIdCita());
+            psInsert.setInt(2, cita.getCedulaInstructor());
+            psInsert.setInt(3, cita.getCedulaAlumno());
+            Date fechaCita = cita.getFechaCita();
+            psInsert.setDate(4, new java.sql.Date(fechaCita.getTime()));
+            psInsert.setInt(5, cita.getHoraCita());
+            psInsert.setString(6, cita.getLugarCita());
+            psInsert.setString(7, cita.getNivel());
+            psInsert.setString(8, cita.getEstadoCita());
+
+            // Ejecutar la consulta de inserción
+            int filasAfectadas = psInsert.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Inserción exitosa para la cita con ID: " + cita.getIdCita());
+            } else {
+                System.out.println("La inserción no tuvo éxito para la cita con ID " + cita.getIdCita());
+            }
+        }
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+} finally {
+    // Cerrar PreparedStatements y Connection en el bloque finally
+    try {
+        if (psSelect != null) {
+            psSelect.close();
+        }
+        if (psInsert != null) {
+            psInsert.close();
+        }
+        if (con != null) {
+            con.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+      /*  
     Connection con = null;
     PreparedStatement ps = null;
 
@@ -136,6 +223,7 @@ public class GestorCitas {
             // Verificar si la cita ya existe
             ps.setString(1, Integer.toString(cita.getIdCita()));
             ResultSet rs = ps.executeQuery();
+
 
             if (rs.next()) {
                 // la cita ya existe, omitir la inserción
@@ -179,7 +267,7 @@ public class GestorCitas {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }  
     
     public static Cita buscarCita(int cedula, int idCita){
